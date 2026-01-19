@@ -880,17 +880,24 @@ ol {
     }
 
     .primary-nav {
-        position: static;
+        /* Position nav inside header area on desktop */
+        position: fixed;
+        top: 0;
+        right: 5%;
+        /* Align with container (90% width = 5% margin each side) */
         width: auto;
         max-width: none;
-        /* Reset mobile max-width: 300px */
         height: auto;
         transform: none;
-        padding: 0;
+        padding: 1.5rem 0;
+        /* Match header padding */
         background: transparent;
         box-shadow: none;
         overflow-y: visible;
+        z-index: 51;
+        /* Just above header z-index */
     }
+
 
 
 
