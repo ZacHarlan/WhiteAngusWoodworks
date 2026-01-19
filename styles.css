@@ -9,14 +9,16 @@
     --white: #ffffff;
     --walnut: #4a3b32;
     --walnut-light: #6d584c;
-    --gold: #d4a056; /* Warm tan accent */
+    --gold: #d4a056;
+    /* Warm tan accent */
     --gold-hover: #b88640;
     --grey-light: #e5e5e5;
 
     /* Typography */
-    --font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", serif; /* Serif feel via font stack if loaded, but here using system sans/serif mix for clean look */
+    --font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", serif;
+    /* Serif feel via font stack if loaded, but here using system sans/serif mix for clean look */
     --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    
+
     /* Spacing Scale */
     --space-xs: 0.5rem;
     --space-sm: 1rem;
@@ -26,7 +28,7 @@
 
     /* Spacing - Responsive Clamp */
     --section-padding: clamp(3rem, 5vw, 6rem);
-    
+
     /* Transitions */
     --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
     --transition-slow: 0.6s var(--ease-out);
@@ -39,7 +41,9 @@
 /* =========================================
    RESET & BASE STYLES
    ========================================= */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -64,7 +68,10 @@ img {
     display: block;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: var(--font-heading);
     color: var(--ink);
     margin: 0 0 1rem;
@@ -72,9 +79,18 @@ h1, h2, h3, h4 {
     line-height: 1.2;
 }
 
-h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: -0.02em; }
-h2 { font-size: clamp(2rem, 4vw, 3rem); }
-h3 { font-size: 1.25rem; }
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+    font-size: 1.25rem;
+}
 
 p {
     margin-bottom: 1.5rem;
@@ -87,7 +103,8 @@ a {
     transition: color var(--transition-fast);
 }
 
-ul, ol {
+ul,
+ol {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -100,6 +117,7 @@ ul, ol {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
+    /* overflow-x: hidden;  <-- Removing this as it can clip shadows/content */
 }
 
 .section-padding {
@@ -130,18 +148,36 @@ ul, ol {
     top: 0;
 }
 
+
 /* Buttons */
 .btn {
     display: inline-block;
-    padding: 1rem 2rem;
+    padding: 1rem 1.5rem;
+    /* Reduced padding slightly for mobile safety */
     font-weight: 600;
     border: 2px solid transparent;
     cursor: pointer;
     transition: all var(--transition-fast);
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    /* Slightly smaller base font */
     letter-spacing: 0.05em;
     text-align: center;
+    white-space: nowrap;
+    /* Prevent awkward wrapping initially */
+    max-width: 100%;
+    /* Ensure it doesn't overflow container */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Graceful degradation */
+}
+
+/* Allow wrapping on very small screens if absolutely necessary for long text */
+@media (max-width: 350px) {
+    .btn {
+        white-space: normal;
+        padding: 0.8rem 1rem;
+    }
 }
 
 .btn-primary {
@@ -156,13 +192,15 @@ ul, ol {
 }
 
 /* Outline style is default secondary unless defined otherwise */
-.btn-secondary, .btn-outline {
+.btn-secondary,
+.btn-outline {
     background-color: transparent;
     color: var(--ink);
     border-color: var(--ink);
 }
 
-.btn-secondary:hover, .btn-outline:hover {
+.btn-secondary:hover,
+.btn-outline:hover {
     background-color: var(--ink);
     color: var(--white);
 }
@@ -180,7 +218,7 @@ ul, ol {
     z-index: 50;
     background-color: var(--cream);
     padding: 1rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     transition: padding 0.3s ease, background-color 0.3s ease;
 }
 
@@ -200,6 +238,45 @@ ul, ol {
     height: 60px;
     width: auto;
 }
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+}
+
+.nav-cta {
+    white-space: nowrap;
+    /* Keep button from breaking awkwardly */
+}
+
+/* Brand Text - Mobile First (Hidden or small) */
+.brand-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: none;
+    /* Hidden on smallest screens to save space */
+}
+
+/* Show brand text on larger mobile/tablet */
+@media (min-width: 480px) {
+    .brand-text {
+        display: block;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .brand-text {
+        font-size: 1.25rem;
+    }
+}
+
 
 /* Mobile Nav Toggle */
 .nav-toggle {
@@ -231,17 +308,24 @@ ul, ol {
     transition: transform 0.3s;
 }
 
-.hamburger::before { top: -8px; }
-.hamburger::after { top: 8px; }
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    top: 8px;
+}
 
 /* Hamburger Active State */
 .nav-toggle[aria-expanded="true"] .hamburger {
     background-color: transparent;
 }
+
 .nav-toggle[aria-expanded="true"] .hamburger::before {
     transform: rotate(45deg);
     top: 0;
 }
+
 .nav-toggle[aria-expanded="true"] .hamburger::after {
     transform: rotate(-45deg);
     top: 0;
@@ -259,7 +343,7 @@ ul, ol {
     padding: 6rem 2rem;
     transform: translateX(100%);
     transition: transform 0.4s var(--ease-out);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
 }
 
 .primary-nav[data-visible="true"] {
@@ -313,7 +397,8 @@ ul, ol {
 .hero-content {
     position: relative;
     z-index: 2;
-    padding-top: 4rem; /* Offset for header */
+    padding-top: 4rem;
+    /* Offset for header */
 }
 
 .hero-title {
@@ -337,6 +422,7 @@ ul, ol {
     color: var(--white);
     border-color: var(--white);
 }
+
 .hero-actions .btn-secondary:hover {
     background-color: var(--white);
     color: var(--ink);
@@ -356,7 +442,7 @@ ul, ol {
     border-radius: var(--radius-sm);
     overflow: hidden;
     transition: transform var(--transition-fast);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
 }
 
 .featured-card:hover {
@@ -397,6 +483,7 @@ ul, ol {
     gap: 0.5rem;
     margin-bottom: 2rem;
 }
+
 .filter-btn {
     background: none;
     border: 1px solid var(--grey-light);
@@ -425,7 +512,8 @@ ul, ol {
     cursor: pointer;
     overflow: hidden;
     border-radius: var(--radius-sm);
-    aspect-ratio: 1; /* Square thumbnails */
+    aspect-ratio: 1;
+    /* Square thumbnails */
 }
 
 .gallery-item img {
@@ -539,7 +627,8 @@ ul, ol {
     font-weight: 600;
     padding: 1rem 0;
     cursor: pointer;
-    list-style: none; /* Remove default triangle */
+    list-style: none;
+    /* Remove default triangle */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -554,6 +643,7 @@ ul, ol {
     font-size: 1.5rem;
     font-weight: 300;
 }
+
 .faq-item[open] summary::after {
     content: '-';
 }
@@ -586,12 +676,17 @@ ul, ol {
 .form-group textarea,
 .form-group select {
     width: 100%;
+    /* Full width of container */
+    max-width: 100%;
+    /* Prevent overflow */
     padding: 0.8rem;
     border: 1px solid #ccc;
     background-color: var(--white);
     font-family: inherit;
     font-size: 1rem;
     border-radius: var(--radius-sm);
+    box-sizing: border-box;
+    /* Ensure padding doesn't add to width */
 }
 
 .form-group input:focus,
@@ -640,6 +735,7 @@ ul, ol {
     margin-right: 1rem;
     opacity: 0.7;
 }
+
 .footer-social a:hover {
     opacity: 1;
 }
@@ -653,7 +749,7 @@ ul, ol {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.95);
+    background: rgba(0, 0, 0, 0.95);
     z-index: 1000;
     display: none;
     align-items: center;
@@ -695,7 +791,7 @@ ul, ol {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
     font-size: 3rem;
@@ -705,11 +801,16 @@ ul, ol {
 }
 
 .lightbox-nav:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.lightbox-nav.prev { left: -60px; }
-.lightbox-nav.next { right: -60px; }
+.lightbox-nav.prev {
+    left: -60px;
+}
+
+.lightbox-nav.next {
+    right: -60px;
+}
 
 /* =========================================
    SCROLL ANIMATIONS
@@ -742,9 +843,12 @@ ul, ol {
    MEDIA QUERIES (DESKTOP)
    ========================================= */
 @media (min-width: 768px) {
+
     /* Header */
-    .nav-toggle { display: none; }
-    
+    .nav-toggle {
+        display: none;
+    }
+
     .primary-nav {
         position: static;
         width: auto;
@@ -753,7 +857,7 @@ ul, ol {
         background: transparent;
         box-shadow: none;
     }
-    
+
     .nav-list {
         flex-direction: row;
         gap: 2rem;
@@ -764,16 +868,17 @@ ul, ol {
         font-size: 1rem;
         font-weight: 500;
     }
-    
+
     .nav-cta {
-        padding: 0.5rem 1.5rem; /* Specific adjustments for button inside nav */
+        padding: 0.5rem 1.5rem;
+        /* Specific adjustments for button inside nav */
     }
 
     /* Grids */
     .featured-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    
+
     .services-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -782,7 +887,7 @@ ul, ol {
         grid-template-columns: 1fr 1fr;
         align-items: center;
     }
-    
+
     .contact-container {
         grid-template-columns: 1fr 1.5fr;
     }
@@ -790,7 +895,7 @@ ul, ol {
     .process-steps {
         grid-template-columns: repeat(4, 1fr);
     }
-    
+
     .process-step {
         border-left: none;
         border-top: 1px solid var(--grey-light);
@@ -803,13 +908,13 @@ ul, ol {
     html {
         scroll-behavior: auto;
     }
-    
+
     .reveal-section,
     .reveal-item,
     .active,
-    .lightbox, 
-    .hamburger, 
-    .hamburger::before, 
+    .lightbox,
+    .hamburger,
+    .hamburger::before,
     .hamburger::after,
     .card-image img {
         transition: none !important;
