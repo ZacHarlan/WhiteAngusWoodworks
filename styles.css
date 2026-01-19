@@ -419,6 +419,12 @@ ol {
     z-index: 1;
 }
 
+@media (max-width: 800px) {
+    .hero-bg-overlay {
+        background-image: url('assets/stock/hero-bg-mobile.webp');
+    }
+}
+
 /* Fallback background if image missing or loading */
 .hero {
     background: linear-gradient(135deg, #2c241b 0%, #1a1a1a 100%);
