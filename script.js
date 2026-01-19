@@ -257,19 +257,48 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (isValid) {
-                // Simulate sending
                 const btn = quoteForm.querySelector('button[type="submit"]');
                 const originalText = btn.innerText;
+                const formData = new FormData(quoteForm);
+
+                // --- CONFIGURATION ---
+                // Replace the URL below with your Google Apps Script Web App URL
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbwJQVS3qWAHVuaV0ZCruPlsuttMrX5PEzrFr6IcpEZMRzoFlVAasgLd0MfgAzNSkoAAjw/exec';
+                // ---------------------
+
                 btn.innerText = 'Sending...';
                 btn.disabled = true;
 
-                setTimeout(() => {
-                    formStatus.innerText = 'Message sent successfully! We will be in touch soon.';
-                    formStatus.style.color = 'green';
-                    quoteForm.reset();
-                    btn.innerText = originalText;
-                    btn.disabled = false;
-                }, 1500);
+                if (scriptURL === 'https://script.google.com/macros/s/AKfycbwJQVS3qWAHVuaV0ZCruPlsuttMrX5PEzrFr6IcpEZMRzoFlVAasgLd0MfgAzNSkoAAjw/exec') {
+                    // Fallback for if they haven't set the URL yet
+                    setTimeout(() => {
+                        formStatus.textContent = 'Configuration needed: Please set your Google Apps Script URL in script.js.';
+                        formStatus.style.color = 'orange';
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                    }, 500);
+                    return;
+                }
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // Google Apps Script requires no-cors for simple redirects
+                })
+                    .then(response => {
+                        formStatus.textContent = 'Message sent successfully! We will be in touch soon.';
+                        formStatus.style.color = 'green';
+                        quoteForm.reset();
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                    })
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        formStatus.textContent = 'Oops! There was an error sending your message. Please try again or email directly.';
+                        formStatus.style.color = 'red';
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                    });
             }
         });
     }
