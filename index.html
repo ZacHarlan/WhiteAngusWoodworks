@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White Angus Wood Works | Handcrafted Fine Furniture</title>
+    <meta name="description" content="White Angus Wood Works creates handcrafted beds, tables, and custom fine wood goods using traditional joinery and premium materials.">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- 
+      PLACEHOLDER IMAGE INSTRUCTIONS:
+      This site uses placeholder images. Please replace the files in:
+      - /assets/stock/
+      - /assets/gallery/
+      
+      Keep the filenames identical to avoid code changes, or update the src attributes below.
+      Recommended stock photo dimensions: 1920x1080 for hero, 800x600 for gallery.
+    -->
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="logo-link">
+                <img src="assets/logo.jpg" alt="White Angus Wood Works Logo" class="logo-img">
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+                <span class="hamburger"></span>
+            </button>
+            <nav id="primary-nav" class="primary-nav">
+                <ul class="nav-list">
+                    <li><a href="#featured">Featured</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact" class="btn btn-primary nav-cta">Request Quote</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero reveal-section">
+            <div class="container hero-content">
+                <h1 class="hero-title">Heirloom Quality.<br>Handcrafted Integrity.</h1>
+                <p class="hero-subtitle">Bespoke woodworking built to last generations.</p>
+                <div class="hero-actions">
+                    <a href="#gallery" class="btn btn-primary">View Gallery</a>
+                    <a href="#contact" class="btn btn-secondary">Request a Quote</a>
+                </div>
+            </div>
+            <!-- Background image treated via CSS/Pseudo or img tag if preferred, using CSS for parallax feel -->
+            <div class="hero-bg-overlay"></div>
+        </section>
+
+        <!-- Featured Work -->
+        <section id="featured" class="featured-section section-padding reveal-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Commissions</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="featured-grid">
+                    <article class="featured-card reveal-item">
+                        <div class="card-image">
+                            <img src="assets/stock/featured-1.jpg" alt="Custom Walnut Bed Frame" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>The Alpine Bed</h3>
+                            <p>Black walnut with exposed joinery and floating nightstands.</p>
+                        </div>
+                    </article>
+                    <article class="featured-card reveal-item">
+                        <div class="card-image">
+                            <img src="assets/stock/featured-2.jpg" alt="Live Edge Dining Table" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>River Valley Table</h3>
+                            <p>Sustainably sourced maple with a matte oil finish.</p>
+                        </div>
+                    </article>
+                    <article class="featured-card reveal-item">
+                        <div class="card-image">
+                            <img src="assets/stock/featured-3.jpg" alt="Heirloom Jewelry Box" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3>Keepsake Box</h3>
+                            <p>Cherry and maple construction with velvet lining.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery" class="gallery-section section-padding reveal-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Portfolio</h2>
+                    <div class="divider"></div>
+                    <p>Browse our collection of past projects.</p>
+                </div>
+                
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="beds">Beds</button>
+                    <button class="filter-btn" data-filter="tables">Tables</button>
+                    <button class="filter-btn" data-filter="boxes">Boxes</button>
+                    <button class="filter-btn" data-filter="other">Other</button>
+                </div>
+
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Gallery items (Placeholder structure) -->
+                    <!-- In a real scenario, more items would be here. JS will handle load more & content. -->
+                    <div class="gallery-item reveal-item" data-category="beds">
+                        <img src="assets/gallery/bed-01.jpg" alt="Queen Bed Frame" tabindex="0">
+                    </div>
+                    <div class="gallery-item reveal-item" data-category="tables">
+                        <img src="assets/gallery/table-02.jpg" alt="Coffee Table" tabindex="0">
+                    </div>
+                    <div class="gallery-item reveal-item" data-category="boxes">
+                        <img src="assets/gallery/box-03.jpg" alt="Jewelry Box" tabindex="0">
+                    </div>
+                     <div class="gallery-item reveal-item" data-category="beds">
+                        <img src="assets/gallery/bed-04.jpg" alt="Platform Bed" tabindex="0">
+                    </div>
+                    <div class="gallery-item reveal-item" data-category="tables">
+                        <img src="assets/gallery/table-05.jpg" alt="End Table" tabindex="0">
+                    </div>
+                    <div class="gallery-item reveal-item" data-category="other">
+                        <img src="assets/gallery/other-06.jpg" alt="Cutting Board" tabindex="0">
+                    </div>
+                     <div class="gallery-item reveal-item" data-category="boxes">
+                        <img src="assets/gallery/box-07.jpg" alt="Humidor" tabindex="0">
+                    </div>
+                    <div class="gallery-item reveal-item" data-category="other">
+                        <img src="assets/gallery/other-08.jpg" alt="Bookshelf" tabindex="0">
+                    </div>
+                </div>
+                
+                <div class="gallery-actions">
+                    <button id="load-more" class="btn btn-outline">Load More</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="services-section section-padding reveal-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Services</h2>
+                    <div class="divider"></div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card reveal-item">
+                        <h3>Custom Furniture</h3>
+                        <p>Beds, tables, and seating designed to fit your space and style perfectly.</p>
+                    </div>
+                    <div class="service-card reveal-item">
+                        <h3>Fine Wood Goods</h3>
+                        <p>Hand-turned bowls, cutting boards, and boxes that make perfect gifts.</p>
+                    </div>
+                    <div class="service-card reveal-item">
+                        <h3>Restoration</h3>
+                        <p>Breathing new life into cherished antique pieces with careful repair.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="about-section section-padding reveal-section">
+             <div class="container about-grid">
+                <div class="about-image reveal-item">
+                    <img src="assets/stock/shop-scene.jpg" alt="Woodworker in shop">
+                </div>
+                <div class="about-content reveal-item">
+                    <h2 class="section-title">About the Craft</h2>
+                    <div class="divider"></div>
+                    <p>White Angus Wood Works is dedicated to the art of traditional woodworking. We believe that furniture should be more than functional—it should be a story told in grain and joinery.</p>
+                    <p>Every piece is built by hand in our local shop, using sustainably harvested domestic hardwoods.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process -->
+        <section id="process" class="process-section section-padding reveal-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Our Process</h2>
+                    <div class="divider"></div>
+                </div>
+                <ol class="process-steps">
+                    <li class="process-step reveal-item">
+                        <span class="step-number">01</span>
+                        <h3>Consultation</h3>
+                        <p>We discuss your vision, dimensions, and preferred materials.</p>
+                    </li>
+                    <li class="process-step reveal-item">
+                        <span class="step-number">02</span>
+                        <h3>Design</h3>
+                        <p>Sketches and 3D models to visualize the final piece.</p>
+                    </li>
+                    <li class="process-step reveal-item">
+                        <span class="step-number">03</span>
+                        <h3>Build</h3>
+                        <p>Meticulous crafting using traditional methods.</p>
+                    </li>
+                    <li class="process-step reveal-item">
+                        <span class="step-number">04</span>
+                        <h3>Delivery</h3>
+                        <p>White-glove delivery and installation in your home.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+         <!-- Testimonials -->
+         <section id="testimonials" class="testimonials-section section-padding reveal-section">
+            <div class="container">
+                <blockquote class="testimonial reveal-item">
+                    <p>"The dining table is absolutely stunning. It's not just furniture, it's the centerpiece of our home."</p>
+                    <cite>— Sarah J.</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="faq-section section-padding reveal-section">
+            <div class="container">
+                <div class="section-header">
+                     <h2 class="section-title">FAQ</h2>
+                     <div class="divider"></div>
+                </div>
+                <div class="faq-grid">
+                    <details class="faq-item reveal-item">
+                        <summary>Do you ship nationally?</summary>
+                        <p>Yes, we crate and ship commissions across the continental US.</p>
+                    </details>
+                    <details class="faq-item reveal-item">
+                        <summary>What is the lead time?</summary>
+                        <p>Lead times vary by project complexity, typically 8-12 weeks.</p>
+                    </details>
+                    <details class="faq-item reveal-item">
+                        <summary>Do you require a deposit?</summary>
+                        <p>Yes, a 50% deposit secures your spot in the build schedule.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use image as background for contact section or similar effect -->
+        <section id="contact" class="contact-section section-padding reveal-section">
+            <div class="container contact-container">
+                <div class="contact-info reveal-item">
+                    <h2 class="section-title">Start Your Project</h2>
+                    <div class="divider"></div>
+                    <p>Ready to commission a custom piece? Fill out the form or reach out directly.</p>
+                    <address>
+                        <p>Email: <a href="mailto:hello@whiteanguswoodworks.com">hello@whiteanguswoodworks.com</a></p>
+                        <p>Instagram: <a href="#">@whiteanguswoodworks</a></p>
+                    </address>
+                </div>
+                <form id="quote-form" class="reveal-item" novalidate>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                        <span class="error-msg">Please enter your name.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                         <span class="error-msg">Please enter a valid email.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-type">Project Type</label>
+                        <select id="project-type" name="projectType">
+                            <option value="furniture">Custom Furniture</option>
+                            <option value="good">Small Good</option>
+                            <option value="restoration">Restoration</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Tell us about your project</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                         <span class="error-msg">Please include a message.</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width">Send Request</button>
+                    <p id="form-status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                 <h4>White Angus Wood Works</h4>
+                 <p>&copy; <span id="year"></span> All rights reserved.</p>
+            </div>
+            <div class="footer-social">
+                <!-- Placeholders -->
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Facebook">FB</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image View">
+        <button id="lightbox-close" class="lightbox-close" aria-label="Close">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-controls">
+                <button id="lightbox-prev" class="lightbox-nav prev" aria-label="Previous Image">&lsaquo;</button>
+                <button id="lightbox-next" class="lightbox-nav next" aria-label="Next Image">&rsaquo;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
