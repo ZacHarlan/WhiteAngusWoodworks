@@ -1,12 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // =========================================
     // HEADER & MOBILE NAV
     // =========================================
     const header = document.querySelector('.site-header');
     const navToggle = document.querySelector('.nav-toggle');
     const primaryNav = document.querySelector('#primary-nav');
-    
+
+    // Create overlay element dynamically
+    const navOverlay = document.createElement('div');
+    navOverlay.classList.add('nav-overlay');
+    document.body.appendChild(navOverlay);
+
     // Sticky Header Effect
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -19,21 +24,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile Nav Toggle
     navToggle.addEventListener('click', () => {
         const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-        navToggle.setAttribute('aria-expanded', !isExpanded);
-        primaryNav.setAttribute('data-visible', !isExpanded);
-        
-        // Prevent body scroll when menu is open
-        document.body.style.overflow = !isExpanded ? 'hidden' : '';
+        toggleNav(!isExpanded);
+    });
+
+    // Close nav when clicking overlay
+    navOverlay.addEventListener('click', () => {
+        toggleNav(false);
     });
 
     // Close nav when clicking a link
     primaryNav.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-            navToggle.setAttribute('aria-expanded', 'false');
-            primaryNav.setAttribute('data-visible', 'false');
-            document.body.style.overflow = '';
+            toggleNav(false);
         });
     });
+
+    function toggleNav(show) {
+        navToggle.setAttribute('aria-expanded', show);
+        primaryNav.setAttribute('data-visible', show);
+
+        if (show) {
+            navOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        } else {
+            navOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
 
     // =========================================
     // SCROLL ANIMATIONS (IntersectionObserver)
@@ -63,20 +80,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
     const loadMoreBtn = document.getElementById('load-more');
-    
+
     // Load saved filter from localStorage
     const savedFilter = localStorage.getItem('galleryFilter') || 'all';
-    
+
     // Apply initial filter
     applyFilter(savedFilter);
     updateActiveButton(savedFilter);
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-             const filterValue = btn.getAttribute('data-filter');
-             applyFilter(filterValue);
-             updateActiveButton(filterValue);
-             localStorage.setItem('galleryFilter', filterValue);
+            const filterValue = btn.getAttribute('data-filter');
+            applyFilter(filterValue);
+            updateActiveButton(filterValue);
+            localStorage.setItem('galleryFilter', filterValue);
         });
     });
 
@@ -88,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.classList.remove('hidden');
                 // Re-trigger animation if needed, or simple display block
                 item.style.display = 'block';
-                
+
                 // Add staggered animation delay for visible items
                 // Simple version: just default CSS transition handles opacity if we toggle classes
                 // here we just ensure they are visible
@@ -98,29 +115,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.style.display = 'none';
             }
         });
-        
+
         // Hiding load more if few items (Simulation)
-        if(loadMoreBtn) {
+        if (loadMoreBtn) {
             loadMoreBtn.style.display = visibleCount > 8 ? 'inline-block' : 'none';
         }
     }
 
     function updateActiveButton(filter) {
         filterBtns.forEach(btn => {
-             if(btn.getAttribute('data-filter') === filter) {
-                 btn.classList.add('active');
-             } else {
-                 btn.classList.remove('active');
-             }
+            if (btn.getAttribute('data-filter') === filter) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
         });
     }
-    
+
     // Load More functionality (Mock)
-    if(loadMoreBtn) {
+    if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
-             // In a real app, this would fetch specific content.
-             // Here we might just reveal hidden pre-loaded items or mock it.
-             alert('In a real implementation, this would load the next page of items from the server or JSON file.');
+            // In a real app, this would fetch specific content.
+            // Here we might just reveal hidden pre-loaded items or mock it.
+            alert('In a real implementation, this would load the next page of items from the server or JSON file.');
         });
     }
 
@@ -132,11 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxClose = document.getElementById('lightbox-close');
     const prevBtn = document.getElementById('lightbox-prev');
     const nextBtn = document.getElementById('lightbox-next');
-    
+
     let currentImageIndex = 0;
     // Get currently visible items for lightbox navigation
     const getVisibleItems = () => Array.from(document.querySelectorAll('.gallery-item:not(.hidden) img'));
-    
+
     galleryItems.forEach(item => {
         const img = item.querySelector('img');
         img.addEventListener('click', () => {
@@ -144,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentImageIndex = visibleImages.indexOf(img);
             openLightbox(img.src);
         });
-        
+
         // Keyboard accessibility for grid items
         item.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
@@ -180,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     lightboxClose.addEventListener('click', closeLightbox);
-    
+
     // Close on background click
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
@@ -192,14 +209,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     prevBtn.addEventListener('click', (e) => {
-         e.stopPropagation();
-         showPrevImage();
+        e.stopPropagation();
+        showPrevImage();
     });
 
     // Keyboard Navigation for Lightbox
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
-        
+
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowRight') showNextImage();
         if (e.key === 'ArrowLeft') showPrevImage();
@@ -215,10 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
         quoteForm.addEventListener('submit', (e) => {
             e.preventDefault();
             let isValid = true;
-            
+
             // Simple validation check
             const inputs = quoteForm.querySelectorAll('input[required], textarea[required]');
-            
+
             inputs.forEach(input => {
                 const formGroup = input.parentElement;
                 if (!input.checkValidity()) {
@@ -227,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     formGroup.classList.remove('error');
                 }
-                
+
                 // Remove error on input
                 input.addEventListener('input', () => {
                     formGroup.classList.remove('error');
@@ -251,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Dynamic Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
