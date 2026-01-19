@@ -269,17 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.innerText = 'Sending...';
                 btn.disabled = true;
 
-                if (scriptURL === 'https://script.google.com/macros/s/AKfycbzzQfPvMB4Nv1ART_8U1gsi0fHrO7xo-OTkPf7VG2LtUle12CfrEAFIYfqRH8RiVmOjhw/exec') {
-                    // Fallback for if they haven't set the URL yet
-                    setTimeout(() => {
-                        formStatus.textContent = 'Configuration needed: Please set your Google Apps Script URL in script.js.';
-                        formStatus.style.color = 'orange';
-                        btn.innerText = originalText;
-                        btn.disabled = false;
-                    }, 500);
-                    return;
-                }
-
                 fetch(scriptURL, {
                     method: 'POST',
                     body: formData,
