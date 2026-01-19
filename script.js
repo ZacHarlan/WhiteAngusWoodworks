@@ -263,13 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // --- CONFIGURATION ---
                 // Replace the URL below with your Google Apps Script Web App URL
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbwJQVS3qWAHVuaV0ZCruPlsuttMrX5PEzrFr6IcpEZMRzoFlVAasgLd0MfgAzNSkoAAjw/exec';
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbzzQfPvMB4Nv1ART_8U1gsi0fHrO7xo-OTkPf7VG2LtUle12CfrEAFIYfqRH8RiVmOjhw/exec';
                 // ---------------------
 
                 btn.innerText = 'Sending...';
                 btn.disabled = true;
 
-                if (scriptURL === 'https://script.google.com/macros/s/AKfycbwJQVS3qWAHVuaV0ZCruPlsuttMrX5PEzrFr6IcpEZMRzoFlVAasgLd0MfgAzNSkoAAjw/exec') {
+                if (scriptURL === 'https://script.google.com/macros/s/AKfycbzzQfPvMB4Nv1ART_8U1gsi0fHrO7xo-OTkPf7VG2LtUle12CfrEAFIYfqRH8RiVmOjhw/exec') {
                     // Fallback for if they haven't set the URL yet
                     setTimeout(() => {
                         formStatus.textContent = 'Configuration needed: Please set your Google Apps Script URL in script.js.';
