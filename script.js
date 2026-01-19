@@ -7,10 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const primaryNav = document.querySelector('#primary-nav');
 
-    // Create overlay element dynamically
+    // Create overlay element and insert it into the header (same stacking context as nav)
     const navOverlay = document.createElement('div');
     navOverlay.classList.add('nav-overlay');
-    document.body.appendChild(navOverlay);
+    // Insert overlay as first child of body so it's behind everything but visible
+    document.body.insertBefore(navOverlay, document.body.firstChild);
 
     // Sticky Header Effect
     window.addEventListener('scroll', () => {
@@ -32,10 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleNav(false);
     });
 
-    // Close nav when clicking a link
+    // Close nav when clicking a link - but allow time for scroll
     primaryNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+            // Close menu first
             toggleNav(false);
+            // Allow the default anchor navigation to proceed
+            // The browser will handle the scroll after overflow is restored
         });
     });
 
@@ -51,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
     }
+
 
     // =========================================
     // SCROLL ANIMATIONS (IntersectionObserver)

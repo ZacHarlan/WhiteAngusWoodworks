@@ -348,11 +348,10 @@ ol {
     padding: 6rem 2rem;
     transform: translateX(100%);
     transition: transform 0.4s var(--ease-out);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.05);
-    z-index: 1000;
-    /* Ensure it's on top */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    /* Very high to ensure it's always on top */
     overflow-y: auto;
-    /* Scroll if content is tall */
 }
 
 /* Nav Overlay (Backdrop) */
@@ -363,12 +362,11 @@ ol {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 900;
-    /* Behind nav, above everything else */
+    z-index: 9998;
+    /* Just below the nav */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
-    /* backdrop-filter: blur(2px); Removed per user request */
 }
 
 .nav-overlay.active {
@@ -379,6 +377,7 @@ ol {
 .primary-nav[data-visible="true"] {
     transform: translateX(0);
 }
+
 
 .nav-list {
     display: flex;
@@ -872,7 +871,8 @@ ol {
 /* =========================================
    MEDIA QUERIES (DESKTOP)
    ========================================= */
-@media (min-width: 768px) {
+/* Use 1024px breakpoint to prevent header overflow on tablets */
+@media (min-width: 1024px) {
 
     /* Header */
     .nav-toggle {
@@ -882,12 +882,16 @@ ol {
     .primary-nav {
         position: static;
         width: auto;
+        max-width: none;
+        /* Reset mobile max-width: 300px */
+        height: auto;
         transform: none;
         padding: 0;
         background: transparent;
         box-shadow: none;
         overflow-y: visible;
     }
+
 
 
     .nav-list {
