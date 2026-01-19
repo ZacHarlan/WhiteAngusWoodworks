@@ -756,10 +756,14 @@ ol {
     gap: 2rem;
 }
 
-.footer-brand h4 {
+.footer-title {
     color: var(--white);
     margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
 }
+
 
 .footer-social a {
     margin-right: 1rem;
