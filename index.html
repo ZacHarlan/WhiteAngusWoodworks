@@ -8,6 +8,8 @@
     <meta name="description"
         content="White Angus Woodworks creates handcrafted beds, tables, and custom fine wood goods using traditional joinery and premium materials.">
     <link rel="stylesheet" href="styles.css">
+    <!-- Preload hero background for LCP -->
+    <link rel="preload" as="image" href="assets/stock/hero-bg.jpg">
 
     <!-- 
       PLACEHOLDER IMAGE INSTRUCTIONS:
@@ -27,7 +29,7 @@
     <header class="site-header">
         <div class="container header-inner">
             <a href="#" class="logo-link">
-                <img src="assets/logo.png" alt="White Angus Woodworks Logo" class="logo-img">
+                <img src="assets/logo.png" alt="White Angus Woodworks Logo" class="logo-img" width="200" height="80">
                 <span class="brand-text">White Angus Woodworks</span>
             </a>
             <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
@@ -74,7 +76,8 @@
                 <div class="featured-grid">
                     <article class="featured-card reveal-item">
                         <div class="card-image">
-                            <img src="assets/stock/featured-1.jpg" alt="Custom Walnut Bed Frame" loading="lazy">
+                            <img src="assets/stock/featured-1.jpg" alt="Custom Walnut Bed Frame" loading="lazy"
+                                width="800" height="600">
                         </div>
                         <div class="card-content">
                             <h3>The Alpine Bed</h3>
@@ -83,7 +86,8 @@
                     </article>
                     <article class="featured-card reveal-item">
                         <div class="card-image">
-                            <img src="assets/stock/featured-2.jpg" alt="Live Edge Dining Table" loading="lazy">
+                            <img src="assets/stock/featured-2.jpg" alt="Live Edge Dining Table" loading="lazy"
+                                width="800" height="600">
                         </div>
                         <div class="card-content">
                             <h3>River Valley Table</h3>
@@ -92,7 +96,8 @@
                     </article>
                     <article class="featured-card reveal-item">
                         <div class="card-image">
-                            <img src="assets/stock/featured-3.jpg" alt="Heirloom Jewelry Box" loading="lazy">
+                            <img src="assets/stock/featured-3.jpg" alt="Heirloom Jewelry Box" loading="lazy" width="800"
+                                height="600">
                         </div>
                         <div class="card-content">
                             <h3>Keepsake Box</h3>
@@ -124,28 +129,36 @@
                     <!-- Gallery items (Placeholder structure) -->
                     <!-- In a real scenario, more items would be here. JS will handle load more & content. -->
                     <div class="gallery-item reveal-item" data-category="beds">
-                        <img src="assets/gallery/bed-01.jpg" alt="Queen Bed Frame" tabindex="0">
+                        <img src="assets/gallery/bed-01.jpg" alt="Queen Bed Frame" tabindex="0" loading="lazy"
+                            width="400" height="400">
                     </div>
                     <div class="gallery-item reveal-item" data-category="tables">
-                        <img src="assets/gallery/table-02.jpg" alt="Coffee Table" tabindex="0">
+                        <img src="assets/gallery/table-02.jpg" alt="Coffee Table" tabindex="0" loading="lazy"
+                            width="400" height="400">
                     </div>
                     <div class="gallery-item reveal-item" data-category="boxes">
-                        <img src="assets/gallery/box-03.jpg" alt="Jewelry Box" tabindex="0">
+                        <img src="assets/gallery/box-03.jpg" alt="Jewelry Box" tabindex="0" loading="lazy" width="400"
+                            height="400">
                     </div>
                     <div class="gallery-item reveal-item" data-category="beds">
-                        <img src="assets/gallery/bed-04.jpg" alt="Platform Bed" tabindex="0">
+                        <img src="assets/gallery/bed-04.jpg" alt="Platform Bed" tabindex="0" loading="lazy" width="400"
+                            height="400">
                     </div>
                     <div class="gallery-item reveal-item" data-category="tables">
-                        <img src="assets/gallery/table-05.jpg" alt="End Table" tabindex="0">
+                        <img src="assets/gallery/table-05.jpg" alt="End Table" tabindex="0" loading="lazy" width="400"
+                            height="400">
                     </div>
                     <div class="gallery-item reveal-item" data-category="other">
-                        <img src="assets/gallery/other-06.jpg" alt="Cutting Board" tabindex="0">
+                        <img src="assets/gallery/other-06.jpg" alt="Cutting Board" tabindex="0" loading="lazy"
+                            width="400" height="400">
                     </div>
                     <div class="gallery-item reveal-item" data-category="boxes">
-                        <img src="assets/gallery/box-07.jpg" alt="Humidor" tabindex="0">
+                        <img src="assets/gallery/box-07.jpg" alt="Humidor" tabindex="0" loading="lazy" width="400"
+                            height="400">
                     </div>
                     <div class="gallery-item reveal-item" data-category="other">
-                        <img src="assets/gallery/other-08.jpg" alt="Bookshelf" tabindex="0">
+                        <img src="assets/gallery/other-08.jpg" alt="Bookshelf" tabindex="0" loading="lazy" width="400"
+                            height="400">
                     </div>
                 </div>
 
