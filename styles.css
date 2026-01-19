@@ -218,9 +218,10 @@ ol {
     z-index: 50;
     background-color: var(--cream);
     padding: 1rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.05); Removed - was causing dark line */
     transition: padding 0.3s ease, background-color 0.3s ease;
 }
+
 
 .site-header.scrolled {
     padding: 0.5rem 0;
@@ -871,8 +872,8 @@ ol {
 /* =========================================
    MEDIA QUERIES (DESKTOP)
    ========================================= */
-/* Use 1024px breakpoint to prevent header overflow on tablets */
-@media (min-width: 1024px) {
+/* Use 1200px breakpoint to prevent nav overlapping brand text */
+@media (min-width: 1200px) {
 
     /* Header */
     .nav-toggle {
@@ -903,9 +904,11 @@ ol {
 
     .nav-list {
         flex-direction: row;
-        gap: 2rem;
+        gap: 1.5rem;
+        /* Reduced from 2rem to fit better */
         align-items: center;
     }
+
 
     .nav-list a {
         font-size: 1rem;
