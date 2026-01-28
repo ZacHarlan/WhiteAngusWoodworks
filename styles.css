@@ -699,6 +699,8 @@ ol {
 
 .form-group {
     margin-bottom: 1.5rem;
+    position: relative;
+    /* For positioning the checkmark */
 }
 
 .form-group label {
@@ -746,6 +748,30 @@ ol {
 
 .form-group.error .error-msg {
     display: block;
+}
+
+/* Success states */
+.form-group.valid input,
+.form-group.valid textarea {
+    border-color: #2e7d32;
+}
+
+/* Success Checkmark */
+.form-group.valid::after {
+    content: "✓";
+    position: absolute;
+    right: 1rem;
+    top: 2.4rem;
+    /* Adjusted for label height */
+    color: #2e7d32;
+    font-weight: bold;
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+/* Adjust checkmark for textarea */
+.form-group.valid:has(textarea)::after {
+    top: 2.2rem;
 }
 
 .site-footer {

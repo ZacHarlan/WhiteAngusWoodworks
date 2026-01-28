@@ -234,29 +234,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.getElementById('form-status');
 
     if (quoteForm) {
-        quoteForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let isValid = true;
+        // Validation Regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const inputs = quoteForm.querySelectorAll('input[required], textarea[required]');
 
-            // Simple validation check
-            const inputs = quoteForm.querySelectorAll('input[required], textarea[required]');
+        function validateField(input) {
+            const formGroup = input.parentElement;
+            let isFieldValid = true;
 
-            inputs.forEach(input => {
-                const formGroup = input.parentElement;
-                if (!input.checkValidity()) {
-                    formGroup.classList.add('error');
-                    isValid = false;
-                } else {
-                    formGroup.classList.remove('error');
-                }
+            // Robust validation based on type
+            if (input.type === 'email') {
+                isFieldValid = emailRegex.test(input.value.trim());
+            } else {
+                isFieldValid = input.value.trim().length > 0;
+            }
 
-                // Remove error on input
-                input.addEventListener('input', () => {
-                    formGroup.classList.remove('error');
-                });
+            if (!isFieldValid) {
+                formGroup.classList.add('error');
+                formGroup.classList.remove('valid');
+                input.setAttribute('aria-invalid', 'true');
+                return false;
+            } else {
+                formGroup.classList.remove('error');
+                formGroup.classList.add('valid');
+                input.setAttribute('aria-invalid', 'false');
+                return true;
+            }
+        }
+
+        // Attach listeners on load
+        inputs.forEach(input => {
+            // Validate on blur
+            input.addEventListener('blur', () => {
+                validateField(input);
             });
 
-            if (isValid) {
+            // Remove error on input change if user is typing
+            input.addEventListener('input', () => {
+                const formGroup = input.parentElement;
+                formGroup.classList.remove('error');
+                input.setAttribute('aria-invalid', 'false');
+            });
+        });
+
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isFormValid = true;
+
+            // Check all fields on submit
+            inputs.forEach(input => {
+                if (!validateField(input)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (isFormValid) {
                 const btn = quoteForm.querySelector('button[type="submit"]');
                 const originalText = btn.innerText;
                 const formData = new FormData(quoteForm);
