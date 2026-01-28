@@ -10,7 +10,10 @@
     <meta name="theme-color" content="#1a1a1a">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="assets/logo-transparent.png">
-    <link rel="stylesheet" href="styles.min.css">
+    <link rel="stylesheet" href="styles.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="styles.min.css">
+    </noscript>
     <!-- Responsive Preload hero background for LCP with High Priority -->
     <link rel="preload" as="image" href="assets/stock/hero-bg-mobile.webp" media="(max-width: 800px)" type="image/webp"
         fetchpriority="high">
@@ -176,15 +179,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('assets/stock/hero-bg.webp') center/cover no-repeat;
-            opacity: 0.4;
             z-index: 1
         }
 
-        @media (max-width:800px) {
-            .hero-bg-overlay {
-                background-image: url('assets/stock/hero-bg-mobile.webp')
-            }
+        .hero-bg-overlay img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .hero-content {
@@ -265,7 +267,14 @@
                 </div>
             </div>
             <!-- Background image treated via CSS/Pseudo or img tag if preferred, using CSS for parallax feel -->
-            <div class="hero-bg-overlay"></div>
+            <div class="hero-bg-overlay">
+                <picture>
+                    <source srcset="assets/stock/hero-bg-mobile.webp" media="(max-width: 800px)" type="image/webp">
+                    <source srcset="assets/stock/hero-bg.webp" type="image/webp">
+                    <img src="assets/stock/hero-bg.jpg" alt="" fetchpriority="high" width="1920" height="1080"
+                        style="opacity: 0.4;">
+                </picture>
+            </div>
         </section>
 
         <!-- Featured Work -->
