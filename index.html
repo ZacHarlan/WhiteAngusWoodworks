@@ -7,12 +7,54 @@
     <title>White Angus Wood Works | Handcrafted Fine Furniture</title>
     <meta name="description"
         content="White Angus Woodworks creates handcrafted beds, tables, and custom fine wood goods using traditional joinery and premium materials.">
+    <meta name="theme-color" content="#1a1a1a">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/logo-transparent.png">
     <link rel="stylesheet" href="styles.min.css">
     <!-- Responsive Preload hero background for LCP with High Priority -->
     <link rel="preload" as="image" href="assets/stock/hero-bg-mobile.webp" media="(max-width: 800px)" type="image/webp"
         fetchpriority="high">
     <link rel="preload" as="image" href="assets/stock/hero-bg.webp" media="(min-width: 801px)" type="image/webp"
         fetchpriority="high">
+
+    <!-- Structured Data (JSON-LD) - LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "White Angus Wood Works",
+      "image": "https://whiteanguswoodworks.com/assets/logo-transparent.png",
+      "@id": "https://whiteanguswoodworks.com",
+      "url": "https://whiteanguswoodworks.com",
+      "telephone": "",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "",
+        "addressLocality": "",
+        "addressRegion": "",
+        "postalCode": "",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 0,
+        "longitude": 0
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "priceRange": "$$$"
+    }
+    </script>
 
     <!-- Critical CSS -->
     <style>

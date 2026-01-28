@@ -1,0 +1,17 @@
+{
+  "name": "White Angus Wood Works",
+  "short_name": "White Angus",
+  "description": "Handcrafted Fine Furniture and Wood Goods",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "assets/logo-transparent.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
