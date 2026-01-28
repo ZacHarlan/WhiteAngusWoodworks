@@ -8,7 +8,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' 'defer' https://script.google.com;
+        script-src 'self' https://script.google.com;
         style-src 'self' 'unsafe-inline';
         img-src 'self' data: https://whiteanguswoodworks.com;
         font-src 'self';
@@ -23,10 +23,7 @@
     <meta name="theme-color" content="#1a1a1a">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="assets/logo-transparent.png">
-    <link rel="stylesheet" href="styles.min.css" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="styles.min.css">
-    </noscript>
+    <link rel="stylesheet" href="styles.min.css">
     <!-- Responsive Preload hero background for LCP with High Priority -->
     <link rel="preload" as="image" href="assets/stock/hero-bg-mobile.webp" media="(max-width: 800px)" type="image/webp"
         fetchpriority="high">
