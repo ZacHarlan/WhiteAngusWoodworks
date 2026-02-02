@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' https://script.google.com;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data: https://whiteanguswoodworks.com;
+        font-src 'self';
+        connect-src 'self' https://script.google.com;
+        frame-src 'none';
+        object-src 'none';
+        base-uri 'self';
+    ">
+    <title>Journal | White Angus Wood Works | Cedar Rapids, IA</title>
+    <meta name="description"
+        content="Read about the craft of fine woodworking, furniture care, and the benefits of custom commissioned pieces from White Angus Woodworks in Cedar Rapids.">
+    <meta name="theme-color" content="#1a1a1a">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../assets/logo-transparent.png">
+    <link rel="stylesheet" href="../styles.min.css">
+
+    <!-- Use standard relative paths for assets since we are in a subdirectory -->
+    <link rel="canonical" href="https://whiteanguswoodworks.com/articles/">
+</head>
+
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="../index.html" class="logo-link">
+                <img src="../assets/logo-transparent.png" alt="White Angus Woodworks Logo" class="logo-img" width="200"
+                    height="80">
+                <span class="brand-text">White Angus Woodworks</span>
+            </a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <nav id="primary-nav" class="primary-nav">
+        <ul class="nav-list">
+            <li><a href="../index.html#featured">Featured</a></li>
+            <li><a href="../index.html#gallery">Gallery</a></li>
+            <li><a href="../index.html#services">Services</a></li>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="index.html">Journal</a></li>
+            <li><a href="../index.html#contact" class="btn btn-primary nav-cta">Request Quote</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">The Woodworker's Journal</h1>
+                    <div class="divider"></div>
+                    <p class="hero-subtitle" style="color: var(--charcoal);">
+                        Insights on design, materials, and the craft of heirloom furniture.
+                    </p>
+                </div>
+
+                <div class="article-grid">
+                    <!-- Article 1 -->
+                    <article class="article-card">
+                        <a href="benefits-custom-furniture.html" class="card-image">
+                            <!-- Using a stock placeholder from existing assets for now -->
+                            <img src="../assets/stock/featured-1.jpg" alt="Custom Walnut Bed Frame Detail" width="800"
+                                height="600" loading="lazy">
+                        </a>
+                        <div class="article-content">
+                            <span class="article-meta">February 2, 2026</span>
+                            <h2 class="article-title">Why Choose Custom Furniture in Cedar Rapids?</h2>
+                            <p class="article-excerpt">
+                                In a world of fast furniture, investing in a commissioned piece offers unmatched
+                                quality, local provenance, and a design that perfectly fits your home.
+                            </p>
+                            <a href="benefits-custom-furniture.html" class="article-link">Read Article &rarr;</a>
+                        </div>
+                    </article>
+
+                    <!-- Future articles would go here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding"
+            style="background-color: var(--charcoal); color: var(--white); text-align: center;">
+            <div class="container">
+                <h2>Have a project in mind?</h2>
+                <div class="divider" style="background-color: var(--white); margin: 1.5rem auto;"></div>
+                <p style="margin: 0 auto 2rem; color: var(--grey-light);">Let's discuss how we can bring your vision to
+                    life in our local shop.</p>
+                <a href="../index.html#contact" class="btn btn-primary">Start a Conversation</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <p class="footer-title">White Angus Wood Works</p>
+                <p class="footer-local">Serving Cedar Rapids, Marion, Hiawatha & surrounding areas.</p>
+                <p>&copy; <span id="year"></span> All rights reserved.</p>
+            </div>
+            <div class="footer-social">
+                <!-- Placeholders -->
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="#" aria-label="Facebook">FB</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.min.js" defer></script>
+</body>
+
+</html>
