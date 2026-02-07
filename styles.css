@@ -389,6 +389,10 @@ ol {
 .nav-list a {
     font-size: 1.25rem;
     font-weight: 600;
+    display: inline-block;
+    padding: 0.75rem 0;
+    /* Ensures vertical tap target size on mobile */
+    min-width: 44px;
 }
 
 .nav-list a:hover {
@@ -800,6 +804,12 @@ ol {
 .footer-social a {
     margin-right: 1rem;
     opacity: 0.7;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0.5rem;
 }
 
 .footer-social a:hover {
@@ -944,8 +954,9 @@ ol {
 }
 
 .article-meta {
-    font-size: 0.85rem;
-    color: var(--walnut-light);
+    font-size: 0.9rem;
+    color: var(--walnut);
+    /* Darker for better contrast */
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -1056,6 +1067,8 @@ ol {
     .nav-list a {
         font-size: 1rem;
         font-weight: 500;
+        padding: 0.7rem 1rem;
+        /* Hit ~48px total height with line-height */
     }
 
     .nav-cta {
