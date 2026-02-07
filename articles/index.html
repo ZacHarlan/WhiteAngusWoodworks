@@ -23,10 +23,22 @@
     <meta name="theme-color" content="#1a1a1a">
     <link rel="manifest" href="../manifest.json">
     <link rel="apple-touch-icon" href="../assets/logo-transparent.png">
+    <!-- Performance Optimizations -->
+    <link rel="preload" href="../assets/stock/featured-1.webp" as="image" type="image/webp">
     <link rel="stylesheet" href="../styles.min.css">
 
-    <!-- Use standard relative paths for assets since we are in a subdirectory -->
+    <!-- SEO & Social Media -->
     <link rel="canonical" href="https://whiteanguswoodworks.com/articles/">
+    <meta property="og:title" content="Journal | White Angus Wood Works | Cedar Rapids, IA">
+    <meta property="og:description"
+        content="Explore the craft of fine woodworking, furniture care, and custom design insights from White Angus Woodworks.">
+    <meta property="og:image" content="https://whiteanguswoodworks.com/assets/stock/shop-scene.webp">
+    <meta property="og:url" content="https://whiteanguswoodworks.com/articles/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Woodworker's Journal | White Angus Woodworks">
+    <meta name="twitter:description" content="Insights on design, materials, and the craft of heirloom furniture.">
+    <meta name="twitter:image" content="https://whiteanguswoodworks.com/assets/stock/shop-scene.webp">
 </head>
 
 <body>
@@ -74,7 +86,7 @@
                         <a href="benefits-custom-furniture.html" class="card-image">
                             <!-- Using a stock placeholder from existing assets for now -->
                             <img src="../assets/stock/featured-1.webp" alt="Custom Walnut Bed Frame Detail" width="800"
-                                height="600" loading="lazy">
+                                height="600" fetchpriority="high">
                         </a>
                         <div class="article-content">
                             <span class="article-meta">February 2, 2026</span>
