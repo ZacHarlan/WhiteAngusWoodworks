@@ -1038,6 +1038,8 @@ ol {
         /* Position nav inside header area on desktop */
         position: fixed;
         top: 0;
+        bottom: auto;
+        /* Reset mobile stretch */
         right: 5%;
         /* Align with container (90% width = 5% margin each side) */
         width: auto;
@@ -1051,16 +1053,17 @@ ol {
         overflow-y: visible;
         z-index: 51;
         /* Just above header z-index */
+        pointer-events: none;
+        /* Let clicks pass through the container */
     }
-
-
-
 
     .nav-list {
         flex-direction: row;
         gap: 1.5rem;
         /* Reduced from 2rem to fit better */
         align-items: center;
+        pointer-events: auto;
+        /* Allow clicks on navigation items */
     }
 
 
@@ -1104,6 +1107,210 @@ ol {
         padding-left: 0;
         padding-top: 1rem;
     }
+}
+
+/* --- Crossword Puzzle: Try It Yourself --- */
+.crossword-section {
+    background: #fff;
+    padding: 4rem 1rem;
+    margin: 4rem auto;
+    max-width: 1000px;
+}
+
+.crossword-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--color-ink);
+}
+
+.crossword-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.crossword-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.grid-frame {
+    background: #fff;
+    border: 1px solid #000;
+    padding: 3rem;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.crossword-grid {
+    display: grid;
+    grid-template-columns: repeat(11, 35px);
+    grid-template-rows: repeat(11, 35px);
+    gap: 1px;
+    background: #000;
+    border: 1px solid #000;
+}
+
+@media (max-width: 600px) {
+    .grid-frame {
+        padding: 1.5rem;
+    }
+
+    .crossword-grid {
+        grid-template-columns: repeat(11, 26px);
+        grid-template-rows: repeat(11, 26px);
+    }
+}
+
+.crossword-cell {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.crossword-cell.black {
+    background: #1a1a1a;
+}
+
+.crossword-cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000;
+    background: transparent;
+}
+
+.crossword-cell input:focus {
+    background: #fffde7;
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--color-walnut);
+}
+
+.cell-highlight {
+    background: #fff9c4 !important;
+    /* Soft yellow for the whole word */
+}
+
+.crossword-number {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+}
+
+.crossword-clues {
+    flex: 1;
+    min-width: 300px;
+    max-width: 450px;
+}
+
+.clue-group h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: #000;
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem;
+}
+
+.clue-group:not(:first-child) {
+    margin-top: 2.5rem;
+}
+
+.clue-group ul {
+    list-style: none;
+    padding: 0;
+}
+
+.clue-group li {
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    color: #444;
+}
+
+.clue-group li strong {
+    min-width: 30px;
+    color: #000;
+}
+
+.crossword-actions {
+    margin-top: 3rem;
+}
+
+.btn-piano-black {
+    background: #111;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 1.25rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-piano-black:hover {
+    background: #333;
+}
+
+#crossword-feedback {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    min-height: 1.5rem;
+}
+
+.cell-correct {
+    background: #f8fcf8 !important;
+}
+
+.cell-bounce {
+    animation: cellBounce 0.4s ease;
+}
+
+@keyframes cellBounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.active-clue {
+    background: #fdfae6;
+    font-weight: 700;
 }
 
 @media (prefers-reduced-motion: reduce) {

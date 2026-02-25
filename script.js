@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Determine if we are running on a local file system
+    const isLocalFile = window.location.protocol === 'file:';
+
+    // Dynamic Manifest Injection (Avoids CORS errors on file:// protocol)
+    if (!isLocalFile) {
+        const manifestLink = document.createElement('link');
+        manifestLink.rel = 'manifest';
+        // Base path check for articles subdirectory
+        const isInArticles = window.location.pathname.includes('/articles/');
+        manifestLink.href = isInArticles ? '../manifest.json' : 'manifest.json';
+        document.head.appendChild(manifestLink);
+    }
 
     // =========================================
     // HEADER & MOBILE NAV
@@ -201,25 +213,32 @@ document.addEventListener('DOMContentLoaded', () => {
         lightboxImg.src = visibleImages[currentImageIndex].src;
     }
 
-    lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
 
     // Close on background click
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-    });
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    }
 
-    nextBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showNextImage();
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showNextImage();
+        });
+    }
 
-    prevBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showPrevImage();
-    });
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showPrevImage();
+        });
+    }
 
     // Keyboard Navigation for Lightbox
     document.addEventListener('keydown', (e) => {
+        if (!lightbox) return;
         if (!lightbox.classList.contains('active')) return;
 
         if (e.key === 'Escape') closeLightbox();
@@ -324,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Dynamic Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 });

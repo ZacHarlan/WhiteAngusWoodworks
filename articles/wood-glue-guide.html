@@ -21,7 +21,6 @@
     <meta name="description"
         content="Not all glues are created equal. Learn when to use PVA, Hide Glue, or Epoxy in your woodworking projects. Expert advice from White Angus Woodworks in Cedar Rapids.">
     <meta name="theme-color" content="#1a1a1a">
-    <link rel="manifest" href="../manifest.json">
     <link rel="apple-touch-icon" href="../assets/logo-transparent.png">
     <link rel="stylesheet" href="../styles.min.css">
     <link rel="canonical" href="https://whiteanguswoodworks.com/articles/wood-glue-guide.html">
@@ -186,6 +185,43 @@
                     clamping pressure to ensure your project stays together forever.
                 </p>
 
+                <!-- Crossword Puzzle Section -->
+                <section class="crossword-section" id="challenge">
+                    <div class="divider" style="margin: 3rem auto;"></div>
+                    <h2 class="crossword-title">Try It Yourself</h2>
+                    <p class="crossword-subtitle">Click on any cell to start solving. The clues update as you select
+                        different words.</p>
+
+                    <div class="crossword-container">
+                        <div class="grid-frame">
+                            <div class="crossword-grid" id="glue-crossword">
+                                <!-- JS will populate -->
+                            </div>
+                        </div>
+                        <div class="crossword-clues">
+                            <div class="clue-group">
+                                <h3>Across</h3>
+                                <ul id="across-clues">
+                                    <li><strong>1</strong> Standard yellow or white shop glue</li>
+                                    <li><strong>4</strong> Excess glue that escapes a joint</li>
+                                    <li><strong>8</strong> Two-part glue used for gap filling</li>
+                                </ul>
+                            </div>
+                            <div class="clue-group">
+                                <h3>Down</h3>
+                                <ul id="down-clues">
+                                    <li><strong>2</strong> Property of glue that allows disassembly with heat</li>
+                                    <li><strong>5</strong> Traditional adhesive made from animals</li>
+                                </ul>
+                            </div>
+                            <div class="crossword-actions">
+                                <button id="check-puzzle" class="btn-piano-black">Check Answers</button>
+                                <p id="crossword-feedback" class="fade-in"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <div style="margin-top: 3rem; text-align: center;">
                     <a href="../index.html#contact" class="btn btn-primary">Start Your Heirloom Project</a>
                 </div>
@@ -209,6 +245,7 @@
     </footer>
 
     <script src="../script.min.js" defer></script>
+    <script src="crossword.js" defer></script>
 </body>
 
 </html>
