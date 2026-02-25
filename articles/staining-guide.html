@@ -207,8 +207,44 @@
                     the eye into the grain, giving it a 3D "chatoyance" that shifts as you walk around the room.
                 </p>
 
+                <!-- Crossword Puzzle Section -->
+                <section class="crossword-section" id="challenge">
+                    <div class="divider" style="margin: 3rem auto;"></div>
+                    <h2 class="crossword-title">The Finishing Challenge</h2>
+                    <p class="crossword-subtitle">Test your knowledge of stains and wood preparation.</p>
+
+                    <div class="crossword-container">
+                        <div class="grid-frame">
+                            <div class="crossword-grid" id="staining-crossword">
+                                <!-- JS will populate -->
+                            </div>
+                        </div>
+                        <div class="crossword-clues">
+                            <div class="clue-group">
+                                <h3>Across</h3>
+                                <ul id="across-clues">
+                                    <li><strong>1</strong> Uneven stain absorption that causes dark spots</li>
+                                    <li><strong>4</strong> The essential prep step before any finish</li>
+                                </ul>
+                            </div>
+                            <div class="clue-group">
+                                <h3>Down</h3>
+                                <ul id="down-clues">
+                                    <li><strong>2</strong> The natural pattern or direction of wood fibers</li>
+                                    <li><strong>3</strong> "Grain ______" happens when you use water-based products</li>
+                                    <li><strong>5</strong> ______ spirits (used for cleaning and testing)</li>
+                                </ul>
+                            </div>
+                            <div class="crossword-actions">
+                                <button id="check-puzzle" class="btn-piano-black">Check Answers</button>
+                                <p id="crossword-feedback" class="fade-in"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <div style="margin-top: 3rem; text-align: center;">
-                    <a href="../index.html#gallery" class="btn btn-primary">See Our Finished Projects</a>
+                    <a href="../index.html#contact" class="btn btn-primary">Get a Finishing Quote</a>
                 </div>
 
             </div>
@@ -230,6 +266,7 @@
     </footer>
 
     <script src="../script.min.js" defer></script>
+    <script src="crossword.js" defer></script>
 </body>
 
 </html>

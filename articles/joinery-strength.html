@@ -193,8 +193,45 @@
                     children, your grandchildren, and whatever life throws at it.
                 </p>
 
+                <!-- Crossword Puzzle Section -->
+                <section class="crossword-section" id="challenge">
+                    <div class="divider" style="margin: 3rem auto;"></div>
+                    <h2 class="crossword-title">The Joint Challenge</h2>
+                    <p class="crossword-subtitle">How well do you know what holds furniture together?</p>
+
+                    <div class="crossword-container">
+                        <div class="grid-frame">
+                            <div class="crossword-grid" id="joinery-crossword">
+                                <!-- JS will populate -->
+                            </div>
+                        </div>
+                        <div class="crossword-clues">
+                            <div class="clue-group">
+                                <h3>Across</h3>
+                                <ul id="across-clues">
+                                    <li><strong>1</strong> The male part of a joint that fits into a hole</li>
+                                    <li><strong>4</strong> Bonding that happens at the molecular level with glue</li>
+                                    <li><strong>5</strong> The pattern of wood fibers that dictates joint strength</li>
+                                </ul>
+                            </div>
+                            <div class="clue-group">
+                                <h3>Down</h3>
+                                <ul id="down-clues">
+                                    <li><strong>2</strong> The female part of a joint (a rectangular hole)</li>
+                                    <li><strong>3</strong> Strength gained from the physical shape of a joint (like a
+                                        dovetail)</li>
+                                </ul>
+                            </div>
+                            <div class="crossword-actions">
+                                <button id="check-puzzle" class="btn-piano-black">Check Answers</button>
+                                <p id="crossword-feedback" class="fade-in"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <div style="margin-top: 3rem; text-align: center;">
-                    <a href="../index.html#services" class="btn btn-primary">Learn About Our Process</a>
+                    <a href="../index.html#contact" class="btn btn-primary">Discuss Your Custom Build</a>
                 </div>
 
             </div>
@@ -216,6 +253,7 @@
     </footer>
 
     <script src="../script.min.js" defer></script>
+    <script src="crossword.js" defer></script>
 </body>
 
 </html>

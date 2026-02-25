@@ -1,28 +1,86 @@
 /**
  * White Angus Woodworks - Interactive Crossword
- * Specifically for the Wood Glue Guide
+ * Thematic puzzles for all articles
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    const gridContainer = document.getElementById('glue-crossword');
+    // Puzzle Data Configuration
+    const puzzles = {
+        'wood-glue-guide.html': {
+            containerId: 'glue-crossword',
+            size: 11,
+            words: [
+                { answer: "PVA", r: 2, c: 0, dir: "H", num: 1 },
+                { answer: "REVERSIBLE", r: 0, c: 1, dir: "V", num: 2 },
+                { answer: "SQUEEZEOUT", r: 5, c: 1, dir: "H", num: 4 },
+                { answer: "HIDE", r: 2, c: 4, dir: "V", num: 5 },
+                { answer: "EPOXY", r: 9, c: 1, dir: "H", num: 8 }
+            ]
+        },
+        'ai-woodworking-design.html': {
+            containerId: 'ai-crossword',
+            size: 11,
+            words: [
+                { answer: "CNC", r: 1, c: 1, dir: "H", num: 1 },
+                { answer: "VECTOR", r: 1, c: 1, dir: "V", num: 2 },
+                { answer: "CANTILEVER", r: 4, c: 1, dir: "H", num: 4 },
+                { answer: "DESK", r: 4, c: 7, dir: "V", num: 5 },
+                { answer: "LAYOUT", r: 8, c: 3, dir: "H", num: 6 }
+            ]
+        },
+        'dovetailed-tea-box.html': {
+            containerId: 'tea-box-crossword',
+            size: 11,
+            words: [
+                { answer: "DOVETAIL", r: 1, c: 2, dir: "H", num: 1 },
+                { answer: "TEA", r: 0, c: 5, dir: "V", num: 2 },
+                { answer: "MALLET", r: 0, c: 7, dir: "V", num: 3 },
+                { answer: "WALNUT", r: 4, c: 0, dir: "H", num: 4 },
+                { answer: "PIANO", r: 2, c: 3, dir: "V", num: 5 }
+            ]
+        },
+        'staining-guide.html': {
+            containerId: 'staining-crossword',
+            size: 11,
+            words: [
+                { answer: "BLOTCH", r: 1, c: 1, dir: "H", num: 1 },
+                { answer: "SANDING", r: 4, c: 1, dir: "H", num: 4 },
+                { answer: "GRAIN", r: 0, c: 2, dir: "V", num: 2 },
+                { answer: "POPPING", r: 0, c: 4, dir: "V", num: 3 },
+                { answer: "MINERAL", r: 4, c: 1, dir: "V", num: 5 }
+            ]
+        },
+        'joinery-strength.html': {
+            containerId: 'joinery-crossword',
+            size: 11,
+            words: [
+                { answer: "TENON", r: 1, c: 1, dir: "H", num: 1 },
+                { answer: "MORTISE", r: 1, c: 1, dir: "V", num: 2 },
+                { answer: "CHEMICAL", r: 4, c: 1, dir: "H", num: 4 },
+                { answer: "MECHANICAL", r: 1, c: 5, dir: "V", num: 3 },
+                { answer: "GRAIN", r: 8, c: 1, dir: "H", num: 5 }
+            ]
+        }
+    };
+
+    // Determine current puzzle based on filename
+    const filename = window.location.pathname.split('/').pop();
+    const config = puzzles[filename];
+
+    if (!config) {
+        console.warn('No crossword puzzle defined for this page:', filename);
+        return;
+    }
+
+    const gridContainer = document.getElementById(config.containerId);
     const checkBtn = document.getElementById('check-puzzle');
     const feedback = document.getElementById('crossword-feedback');
 
-    // Grid definition: 0 = black cell, char = letter
-    // 11x11 grid
-    const GRID_SIZE = 11;
+    if (!gridContainer || !checkBtn) return;
+
+    const GRID_SIZE = config.size;
+    const words = config.words;
     const gridData = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
-
-    // Word mapping (Row, Col starts at 0)
-    const words = [
-        { answer: "PVA", r: 2, c: 0, dir: "H", num: 1 },
-        { answer: "REVERSIBLE", r: 0, c: 1, dir: "V", num: 2 },
-        { answer: "SQUEEZEOUT", r: 5, c: 1, dir: "H", num: 4 },
-        { answer: "HIDE", r: 2, c: 4, dir: "V", num: 5 },
-        { answer: "EPOXY", r: 9, c: 1, dir: "H", num: 8 }
-    ];
-
-    // Populate gridData with letters and numbers
     const cellNumbers = {};
 
     words.forEach(w => {
@@ -32,14 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const col = w.dir === "H" ? w.c + i : w.c;
             gridData[row][col] = char;
 
-            // Mark the start with a number
             if (i === 0) {
                 cellNumbers[`${row}-${col}`] = w.num;
             }
         });
     });
 
-    let currentDirection = 'H'; // 'H' for Across, 'V' for Down
+    let currentDirection = 'H';
 
     // Render Grid
     for (let r = 0; r < GRID_SIZE; r++) {
@@ -64,11 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     cellDiv.appendChild(numDiv);
                 }
 
-                // Keep track of navigation
                 input.addEventListener('keydown', handleKeyNavigation);
                 input.addEventListener('focus', () => highlightClue(r, c));
                 input.addEventListener('click', () => {
-                    // Toggle direction if already focused on a junction
                     const junction = words.filter(w => {
                         const length = w.answer.length;
                         if (w.dir === "H") return w.r === r && c >= w.c && c < w.c + length;
@@ -95,14 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Attach click listeners to clues
     const clueGroups = ['across-clues', 'down-clues'];
     clueGroups.forEach(groupId => {
-        document.getElementById(groupId).querySelectorAll('li').forEach(li => {
-            li.addEventListener('click', () => {
-                const num = parseInt(li.querySelector('strong').textContent);
-                currentDirection = groupId === 'across-clues' ? 'H' : 'V';
-                focusWordInGrid(num, currentDirection);
+        const groupEl = document.getElementById(groupId);
+        if (groupEl) {
+            groupEl.querySelectorAll('li').forEach(li => {
+                li.addEventListener('click', () => {
+                    const num = parseInt(li.querySelector('strong').textContent);
+                    currentDirection = groupId === 'across-clues' ? 'H' : 'V';
+                    focusWordInGrid(num, currentDirection);
+                });
+                li.style.cursor = 'pointer';
             });
-            li.style.cursor = 'pointer'; // Make it look clickable
-        });
+        }
     });
 
     function focusWordInGrid(num, dir) {
@@ -114,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function highlightClue(r, c) {
-        // Find words containing this cell
         const possibleWords = words.filter(w => {
             const length = w.answer.length;
             if (w.dir === "H") {
@@ -124,20 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Preferred word based on currentDirection
         let activeWord = possibleWords.find(w => w.dir === currentDirection);
-        // Fallback if preferred direction doesn't exist for this cell
         if (!activeWord && possibleWords.length > 0) {
             activeWord = possibleWords[0];
             currentDirection = activeWord.dir;
         }
 
-        // Clear previous highlights
         document.querySelectorAll('.crossword-cell').forEach(cell => cell.classList.remove('cell-highlight'));
         document.querySelectorAll('.clue-group li').forEach(li => li.classList.remove('active-clue'));
 
         if (activeWord) {
-            // Highlight cells in grid
             const w = activeWord;
             for (let i = 0; i < w.answer.length; i++) {
                 const row = w.dir === "H" ? w.r : w.r + i;
@@ -146,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (cell) cell.parentElement.classList.add('cell-highlight');
             }
 
-            // Highlight clue in list
             const listId = w.dir === "H" ? "across-clues" : "down-clues";
             const items = document.getElementById(listId).querySelectorAll('li');
             items.forEach(li => {
@@ -164,8 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const c = parseInt(e.target.dataset.col);
         let nextRow = r, nextCol = c;
 
-        // Overwrite existing character if it's a single printable character
-        // Check for length 1 and Ensure it's not a control key combo
         if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
             e.target.value = '';
         }
@@ -177,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'ArrowUp': nextRow--; break;
             case 'Backspace':
                 if (!e.target.value) {
-                    // Go back in current direction
                     let prevRow = r, prevCol = c;
                     if (currentDirection === 'H') prevCol--; else prevRow--;
                     const prevInput = document.querySelector(`input[data-row="${prevRow}"][data-col="${prevCol}"]`);
@@ -199,52 +248,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const c = parseInt(current.dataset.col);
         let nextRow = r, nextCol = c;
 
-        if (currentDirection === 'H') {
-            nextCol++;
-        } else {
-            nextRow++;
-        }
+        if (currentDirection === 'H') nextCol++; else nextRow++;
 
         const nextInput = document.querySelector(`input[data-row="${nextRow}"][data-col="${nextCol}"]`);
-        if (nextInput) {
-            nextInput.focus();
-        }
+        if (nextInput) nextInput.focus();
     }
 
     checkBtn.addEventListener('click', () => {
         const inputs = document.querySelectorAll('.crossword-cell input');
         let allCorrect = true;
         let filledCount = 0;
-        let incorrectCells = [];
 
         inputs.forEach(input => {
             const val = input.value.trim().toUpperCase();
             if (val) filledCount++;
-
             if (val === input.dataset.answer) {
                 input.parentElement.classList.add('cell-correct', 'cell-bounce');
             } else {
                 input.parentElement.classList.remove('cell-correct', 'cell-bounce');
-                if (val) {
-                    allCorrect = false;
-                    incorrectCells.push({
-                        clue: input.parentElement.querySelector('.crossword-number')?.textContent || 'Inside word',
-                        row: input.dataset.row,
-                        col: input.dataset.col,
-                        entered: val,
-                        expected: input.dataset.answer
-                    });
-                }
+                if (val) allCorrect = false;
             }
         });
 
-        // Ensure allCorrect is false if the puzzle isn't fully filled
         if (filledCount < inputs.length) allCorrect = false;
-
-        console.log(`Crossword Check: ${filledCount}/${inputs.length} boxes filled. allCorrect: ${allCorrect}`);
-        if (incorrectCells.length > 0) {
-            console.warn('Loose joints found:', incorrectCells);
-        }
 
         if (filledCount === 0) {
             feedback.textContent = "Start typing to solve the puzzle!";

@@ -198,6 +198,43 @@
                     Technology just helps those hands work smarter.
                 </p>
 
+                <!-- Crossword Puzzle Section -->
+                <section class="crossword-section" id="challenge">
+                    <div class="divider" style="margin: 3rem auto;"></div>
+                    <h2 class="crossword-title">The Digital Shop Challenge</h2>
+                    <p class="crossword-subtitle">Test your knowledge of high-tech woodworking tool and techniques.</p>
+
+                    <div class="crossword-container">
+                        <div class="grid-frame">
+                            <div class="crossword-grid" id="ai-crossword">
+                                <!-- JS will populate -->
+                            </div>
+                        </div>
+                        <div class="crossword-clues">
+                            <div class="clue-group">
+                                <h3>Across</h3>
+                                <ul id="across-clues">
+                                    <li><strong>1</strong> Computer Numerical Control (machinery automation)</li>
+                                    <li><strong>4</strong> A structural beam supported at only one end</li>
+                                    <li><strong>6</strong> The arrangement of design elements on a page or surface</li>
+                                </ul>
+                            </div>
+                            <div class="clue-group">
+                                <h3>Down</h3>
+                                <ul id="down-clues">
+                                    <li><strong>2</strong> Mathematical paths used by design software for precise
+                                        cutting</li>
+                                    <li><strong>5</strong> A piece of furniture where logic and craft meet</li>
+                                </ul>
+                            </div>
+                            <div class="crossword-actions">
+                                <button id="check-puzzle" class="btn-piano-black">Check Answers</button>
+                                <p id="crossword-feedback" class="fade-in"></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <div style="margin-top: 3rem; text-align: center;">
                     <a href="../index.html#contact" class="btn btn-primary">Design Your Project With Me</a>
                 </div>
@@ -221,6 +258,7 @@
     </footer>
 
     <script src="../script.min.js" defer></script>
+    <script src="crossword.js" defer></script>
 </body>
 
 </html>
