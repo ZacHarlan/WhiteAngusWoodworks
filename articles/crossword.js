@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
             containerId: 'tea-box-crossword',
             size: 11,
             words: [
-                { answer: "DOVETAIL", r: 1, c: 2, dir: "H", num: 1 },
-                { answer: "TEA", r: 0, c: 5, dir: "V", num: 2 },
-                { answer: "MALLET", r: 0, c: 7, dir: "V", num: 3 },
-                { answer: "WALNUT", r: 4, c: 0, dir: "H", num: 4 },
-                { answer: "PIANO", r: 2, c: 3, dir: "V", num: 5 }
+                { answer: "TEA", r: 0, c: 5, dir: "V", num: 1 },
+                { answer: "MALLET", r: 0, c: 7, dir: "V", num: 2 },
+                { answer: "DOVETAIL", r: 1, c: 2, dir: "H", num: 3 },
+                { answer: "PIANO", r: 3, c: 3, dir: "V", num: 4 },
+                { answer: "WALNUT", r: 5, c: 2, dir: "H", num: 5 }
             ]
         },
         'staining-guide.html': {
@@ -254,6 +254,54 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nextInput) nextInput.focus();
     }
 
+    function triggerCelebration() {
+        // 1. Show Success Modal (Create it if it doesn't exist)
+        let modal = document.querySelector('.celebration-overlay');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.className = 'celebration-overlay';
+            modal.innerHTML = `
+                <div class="achievement-card">
+                    <div class="achievement-badge">🪚</div>
+                    <h2 class="achievement-title">Master Woodworker</h2>
+                    <p class="achievement-text">Perfect joints! You've nailed every answer and proven your craft. The shop is proud.</p>
+                    <button class="btn btn-primary" id="return-to-shop">Return to Shop</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Fix CSP violation by avoiding inline onclick
+            document.getElementById('return-to-shop').addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+        }
+
+        setTimeout(() => {
+            modal.classList.add('active');
+
+            // 2. Start Confetti (Wood Shavings) AFTER modal is active 
+            // This ensures they appear over the modal (if z-index is correct)
+            const species = ['walnut', 'maple', 'cherry'];
+            for (let i = 0; i < 100; i++) {
+                const shaving = document.createElement('div');
+                const wood = species[Math.floor(Math.random() * species.length)];
+                shaving.className = `shaving shaving-${wood} shaving-animate`;
+
+                shaving.style.left = Math.random() * 100 + 'vw';
+                shaving.style.top = -Math.random() * 20 - 5 + 'vh';
+                shaving.style.width = (Math.random() * 10 + 5) + 'px';
+                shaving.style.height = (Math.random() * 20 + 10) + 'px';
+                shaving.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                shaving.style.animationDelay = (Math.random() * 2) + 's';
+                shaving.style.opacity = (Math.random() * 0.5 + 0.5).toString(); // Better visibility
+
+                document.body.appendChild(shaving);
+
+                setTimeout(() => shaving.remove(), 5000);
+            }
+        }, 500);
+    }
+
     checkBtn.addEventListener('click', () => {
         const inputs = document.querySelectorAll('.crossword-cell input');
         let allCorrect = true;
@@ -281,6 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (allCorrect) {
             feedback.textContent = "🎉 Master Woodworker! You nailed it.";
             feedback.style.color = "#2e7d32";
+            triggerCelebration();
         } else {
             feedback.textContent = "Some joints are still a bit loose. Check your spelling!";
             feedback.style.color = "#d32f2f";
