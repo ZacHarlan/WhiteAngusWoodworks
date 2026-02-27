@@ -60,6 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 { answer: "MORTISE", r: 2, c: 4, dir: "V", num: 4 },
                 { answer: "GRAIN", r: 4, c: 3, dir: "H", num: 5 }
             ]
+        },
+        'box-joint-jig.html': {
+            containerId: 'box-joint-crossword',
+            size: 11,
+            words: [
+                { answer: "BLADE", r: 2, c: 2, dir: "V", num: 1 },
+                { answer: "FENCE", r: 2, c: 5, dir: "V", num: 2 },
+                { answer: "KERF", r: 3, c: 4, dir: "H", num: 3 },
+                { answer: "SPACING", r: 4, c: 0, dir: "H", num: 4 },
+                { answer: "DADO", r: 5, c: 0, dir: "H", num: 5 }
+            ]
         }
     };
 

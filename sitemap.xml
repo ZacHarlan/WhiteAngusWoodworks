@@ -6,4 +6,16 @@
       <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>
+   <url>
+      <loc>https://whiteanguswoodworks.com/articles/</loc>
+      <lastmod>2026-02-27</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://whiteanguswoodworks.com/articles/box-joint-jig.html</loc>
+      <lastmod>2026-02-27</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
 </urlset>
