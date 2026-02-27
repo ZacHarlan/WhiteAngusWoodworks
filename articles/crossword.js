@@ -10,22 +10,22 @@ document.addEventListener('DOMContentLoaded', () => {
             containerId: 'glue-crossword',
             size: 11,
             words: [
-                { answer: "PVA", r: 2, c: 0, dir: "H", num: 1 },
-                { answer: "REVERSIBLE", r: 0, c: 1, dir: "V", num: 2 },
+                { answer: "REVERSIBLE", r: 0, c: 1, dir: "V", num: 1 },
+                { answer: "PVA", r: 2, c: 0, dir: "H", num: 2 },
+                { answer: "HIDE", r: 2, c: 4, dir: "V", num: 3 },
                 { answer: "SQUEEZEOUT", r: 5, c: 1, dir: "H", num: 4 },
-                { answer: "HIDE", r: 2, c: 4, dir: "V", num: 5 },
-                { answer: "EPOXY", r: 9, c: 1, dir: "H", num: 8 }
+                { answer: "EPOXY", r: 9, c: 1, dir: "H", num: 5 }
             ]
         },
         'ai-woodworking-design.html': {
             containerId: 'ai-crossword',
             size: 11,
             words: [
-                { answer: "CNC", r: 1, c: 1, dir: "H", num: 1 },
-                { answer: "VECTOR", r: 1, c: 1, dir: "V", num: 2 },
-                { answer: "CANTILEVER", r: 4, c: 1, dir: "H", num: 4 },
-                { answer: "DESK", r: 4, c: 7, dir: "V", num: 5 },
-                { answer: "LAYOUT", r: 8, c: 3, dir: "H", num: 6 }
+                { answer: "DESK", r: 3, c: 8, dir: "V", num: 1 },
+                { answer: "CANTILEVER", r: 4, c: 0, dir: "H", num: 2 },
+                { answer: "VECTOR", r: 4, c: 7, dir: "V", num: 3 },
+                { answer: "CNC", r: 6, c: 5, dir: "H", num: 4 },
+                { answer: "LAYOUT", r: 8, c: 4, dir: "H", num: 5 }
             ]
         },
         'dovetailed-tea-box.html': {
@@ -43,22 +43,22 @@ document.addEventListener('DOMContentLoaded', () => {
             containerId: 'staining-crossword',
             size: 11,
             words: [
-                { answer: "BLOTCH", r: 1, c: 1, dir: "H", num: 1 },
+                { answer: "POPPING", r: 0, c: 5, dir: "V", num: 1 },
+                { answer: "BLOTCH", r: 1, c: 3, dir: "H", num: 2 },
+                { answer: "GRAIN", r: 2, c: 2, dir: "V", num: 3 },
                 { answer: "SANDING", r: 4, c: 1, dir: "H", num: 4 },
-                { answer: "GRAIN", r: 0, c: 2, dir: "V", num: 2 },
-                { answer: "POPPING", r: 0, c: 4, dir: "V", num: 3 },
-                { answer: "MINERAL", r: 4, c: 1, dir: "V", num: 5 }
+                { answer: "MINERAL", r: 5, c: 3, dir: "H", num: 5 }
             ]
         },
         'joinery-strength.html': {
             containerId: 'joinery-crossword',
             size: 11,
             words: [
-                { answer: "TENON", r: 1, c: 1, dir: "H", num: 1 },
-                { answer: "MORTISE", r: 1, c: 1, dir: "V", num: 2 },
-                { answer: "CHEMICAL", r: 4, c: 1, dir: "H", num: 4 },
-                { answer: "MECHANICAL", r: 1, c: 5, dir: "V", num: 3 },
-                { answer: "GRAIN", r: 8, c: 1, dir: "H", num: 5 }
+                { answer: "CHEMICAL", r: 0, c: 2, dir: "H", num: 1 },
+                { answer: "MECHANICAL", r: 0, c: 5, dir: "V", num: 2 },
+                { answer: "TENON", r: 1, c: 4, dir: "H", num: 3 },
+                { answer: "MORTISE", r: 2, c: 4, dir: "V", num: 4 },
+                { answer: "GRAIN", r: 4, c: 3, dir: "H", num: 5 }
             ]
         }
     };
