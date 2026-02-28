@@ -48,11 +48,11 @@
                 containerId: 'ai-crossword',
                 size: 11,
                 words: [
-                    { answer: "DESK", r: 3, c: 8, dir: "V", num: 1 },
-                    { answer: "CANTILEVER", r: 4, c: 0, dir: "H", num: 2 },
-                    { answer: "VECTOR", r: 4, c: 7, dir: "V", num: 3 },
-                    { answer: "CNC", r: 6, c: 5, dir: "H", num: 4 },
-                    { answer: "LAYOUT", r: 8, c: 4, dir: "H", num: 5 }
+                    { answer: "CNC", r: 3, c: 0, dir: "V", num: 1 },
+                    { answer: "VECTOR", r: 4, c: 6, dir: "V", num: 2 },
+                    { answer: "DESK", r: 4, c: 8, dir: "V", num: 3 },
+                    { answer: "CANTILEVER", r: 5, c: 0, dir: "H", num: 4 },
+                    { answer: "LAYOUT", r: 7, c: 1, dir: "H", num: 5 }
                 ]
             },
             'dovetailed-tea-box.html': {
@@ -70,33 +70,44 @@
                 containerId: 'staining-crossword',
                 size: 11,
                 words: [
-                    { answer: "POPPING", r: 0, c: 5, dir: "V", num: 1 },
-                    { answer: "BLOTCH", r: 1, c: 3, dir: "H", num: 2 },
-                    { answer: "GRAIN", r: 2, c: 2, dir: "V", num: 3 },
-                    { answer: "SANDING", r: 4, c: 1, dir: "H", num: 4 },
-                    { answer: "MINERAL", r: 5, c: 3, dir: "H", num: 5 }
+                    { answer: "SANDING", r: 0, c: 8, dir: "V", num: 1 },
+                    { answer: "MINERAL", r: 1, c: 3, dir: "H", num: 2 },
+                    { answer: "BLOTCH", r: 4, c: 3, dir: "V", num: 3 },
+                    { answer: "GRAIN", r: 4, c: 5, dir: "H", num: 4 },
+                    { answer: "POPPING", r: 6, c: 2, dir: "H", num: 5 }
                 ]
             },
             'joinery-strength.html': {
                 containerId: 'joinery-crossword',
                 size: 11,
                 words: [
-                    { answer: "CHEMICAL", r: 0, c: 2, dir: "H", num: 1 },
-                    { answer: "MECHANICAL", r: 0, c: 5, dir: "V", num: 2 },
-                    { answer: "TENON", r: 1, c: 4, dir: "H", num: 3 },
-                    { answer: "MORTISE", r: 2, c: 4, dir: "V", num: 4 },
-                    { answer: "GRAIN", r: 4, c: 3, dir: "H", num: 5 }
+                    { answer: "MECHANICAL", r: 3, c: 0, dir: "H", num: 1 },
+                    { answer: "CHEMICAL", r: 3, c: 7, dir: "V", num: 2 },
+                    { answer: "TENON", r: 5, c: 6, dir: "H", num: 3 },
+                    { answer: "MORTISE", r: 7, c: 3, dir: "H", num: 4 },
+                    { answer: "GRAIN", r: 9, c: 5, dir: "H", num: 5 }
                 ]
             },
             'box-joint-jig.html': {
                 containerId: 'box-joint-crossword',
                 size: 11,
                 words: [
-                    { answer: "BLADE", r: 2, c: 2, dir: "V", num: 1 },
-                    { answer: "FENCE", r: 2, c: 5, dir: "V", num: 2 },
-                    { answer: "KERF", r: 3, c: 4, dir: "H", num: 3 },
-                    { answer: "SPACING", r: 4, c: 0, dir: "H", num: 4 },
-                    { answer: "DADO", r: 5, c: 0, dir: "H", num: 5 }
+                    { answer: "KERF", r: 1, c: 4, dir: "H", num: 1 },
+                    { answer: "FENCE", r: 1, c: 7, dir: "V", num: 2 },
+                    { answer: "SPACING", r: 3, c: 2, dir: "H", num: 3 },
+                    { answer: "BLADE", r: 5, c: 3, dir: "H", num: 4 },
+                    { answer: "DADO", r: 5, c: 6, dir: "V", num: 5 }
+                ]
+            },
+            'benefits-custom-furniture.html': {
+                containerId: 'benefits-crossword',
+                size: 11,
+                words: [
+                    { answer: "JOINERY", r: 0, c: 4, dir: "V", num: 1 },
+                    { answer: "CUSTOM", r: 1, c: 0, dir: "H", num: 2 },
+                    { answer: "WALNUT", r: 3, c: 1, dir: "H", num: 3 },
+                    { answer: "HEIRLOOM", r: 5, c: 1, dir: "H", num: 4 },
+                    { answer: "MAPLE", r: 5, c: 8, dir: "V", num: 5 }
                 ]
             }
         };
@@ -223,6 +234,56 @@
             return { passed: true, message: 'Clue numbers follow correct order' };
         }
 
+        /** No unintended adjacency: horizontally adjacent cells must share an across word,
+         *  vertically adjacent cells must share a down word */
+        function testNoUnintendedAdjacency(name, config) {
+            const { size, words } = config;
+            const grid = {};
+            const hMem = {};  // (r,c) → set of H-word indices
+            const vMem = {};  // (r,c) → set of V-word indices
+
+            words.forEach((w, idx) => {
+                getCells(w).forEach(({ row, col, char }) => {
+                    const key = `${row},${col}`;
+                    grid[key] = char;
+                    if (w.dir === 'H') {
+                        if (!hMem[key]) hMem[key] = new Set();
+                        hMem[key].add(idx);
+                    } else {
+                        if (!vMem[key]) vMem[key] = new Set();
+                        vMem[key].add(idx);
+                    }
+                });
+            });
+
+            const violations = [];
+            for (const key of Object.keys(grid)) {
+                const [r, c] = key.split(',').map(Number);
+                // Check right neighbor
+                const rightKey = `${r},${c + 1}`;
+                if (grid[rightKey]) {
+                    const h1 = hMem[key] || new Set();
+                    const h2 = hMem[rightKey] || new Set();
+                    let shared = false;
+                    for (const v of h1) { if (h2.has(v)) { shared = true; break; } }
+                    if (!shared) violations.push(`(${r},${c})→(${r},${c+1}): no shared across word`);
+                }
+                // Check bottom neighbor
+                const botKey = `${r + 1},${c}`;
+                if (grid[botKey]) {
+                    const v1 = vMem[key] || new Set();
+                    const v2 = vMem[botKey] || new Set();
+                    let shared = false;
+                    for (const v of v1) { if (v2.has(v)) { shared = true; break; } }
+                    if (!shared) violations.push(`(${r},${c})→(${r+1},${c}): no shared down word`);
+                }
+            }
+
+            return violations.length === 0
+                ? { passed: true, message: 'No unintended adjacency' }
+                : { passed: false, message: violations.join('; ') };
+        }
+
         /** Build an ASCII grid for visual inspection */
         function buildGridVisual(config) {
             const { size, words } = config;
@@ -250,6 +311,7 @@
                 { label: 'All words fit within grid bounds', fn: testBounds },
                 { label: 'No letter conflicts at intersections', fn: testNoConflicts },
                 { label: 'All words are connected (no isolated words)', fn: testAllConnected },
+                { label: 'No unintended adjacency (clean grid runs)', fn: testNoUnintendedAdjacency },
                 { label: 'Unique clue numbers', fn: testUniqueNumbers },
                 { label: 'Clue number ordering (top→bottom, left→right)', fn: testNumberOrder },
             ];

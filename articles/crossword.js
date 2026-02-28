@@ -21,11 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
             containerId: 'ai-crossword',
             size: 11,
             words: [
-                { answer: "DESK", r: 3, c: 8, dir: "V", num: 1 },
-                { answer: "CANTILEVER", r: 4, c: 0, dir: "H", num: 2 },
-                { answer: "VECTOR", r: 4, c: 7, dir: "V", num: 3 },
-                { answer: "CNC", r: 6, c: 5, dir: "H", num: 4 },
-                { answer: "LAYOUT", r: 8, c: 4, dir: "H", num: 5 }
+                { answer: "CNC", r: 3, c: 0, dir: "V", num: 1 },
+                { answer: "VECTOR", r: 4, c: 6, dir: "V", num: 2 },
+                { answer: "DESK", r: 4, c: 8, dir: "V", num: 3 },
+                { answer: "CANTILEVER", r: 5, c: 0, dir: "H", num: 4 },
+                { answer: "LAYOUT", r: 7, c: 1, dir: "H", num: 5 }
             ]
         },
         'dovetailed-tea-box.html': {
@@ -43,33 +43,44 @@ document.addEventListener('DOMContentLoaded', () => {
             containerId: 'staining-crossword',
             size: 11,
             words: [
-                { answer: "POPPING", r: 0, c: 5, dir: "V", num: 1 },
-                { answer: "BLOTCH", r: 1, c: 3, dir: "H", num: 2 },
-                { answer: "GRAIN", r: 2, c: 2, dir: "V", num: 3 },
-                { answer: "SANDING", r: 4, c: 1, dir: "H", num: 4 },
-                { answer: "MINERAL", r: 5, c: 3, dir: "H", num: 5 }
+                { answer: "SANDING", r: 0, c: 8, dir: "V", num: 1 },
+                { answer: "MINERAL", r: 1, c: 3, dir: "H", num: 2 },
+                { answer: "BLOTCH", r: 4, c: 3, dir: "V", num: 3 },
+                { answer: "GRAIN", r: 4, c: 5, dir: "H", num: 4 },
+                { answer: "POPPING", r: 6, c: 2, dir: "H", num: 5 }
             ]
         },
         'joinery-strength.html': {
             containerId: 'joinery-crossword',
             size: 11,
             words: [
-                { answer: "CHEMICAL", r: 0, c: 2, dir: "H", num: 1 },
-                { answer: "MECHANICAL", r: 0, c: 5, dir: "V", num: 2 },
-                { answer: "TENON", r: 1, c: 4, dir: "H", num: 3 },
-                { answer: "MORTISE", r: 2, c: 4, dir: "V", num: 4 },
-                { answer: "GRAIN", r: 4, c: 3, dir: "H", num: 5 }
+                { answer: "MECHANICAL", r: 3, c: 0, dir: "H", num: 1 },
+                { answer: "CHEMICAL", r: 3, c: 7, dir: "V", num: 2 },
+                { answer: "TENON", r: 5, c: 6, dir: "H", num: 3 },
+                { answer: "MORTISE", r: 7, c: 3, dir: "H", num: 4 },
+                { answer: "GRAIN", r: 9, c: 5, dir: "H", num: 5 }
             ]
         },
         'box-joint-jig.html': {
             containerId: 'box-joint-crossword',
             size: 11,
             words: [
-                { answer: "BLADE", r: 2, c: 2, dir: "V", num: 1 },
-                { answer: "FENCE", r: 2, c: 5, dir: "V", num: 2 },
-                { answer: "KERF", r: 3, c: 4, dir: "H", num: 3 },
-                { answer: "SPACING", r: 4, c: 0, dir: "H", num: 4 },
-                { answer: "DADO", r: 5, c: 0, dir: "H", num: 5 }
+                { answer: "KERF", r: 1, c: 4, dir: "H", num: 1 },
+                { answer: "FENCE", r: 1, c: 7, dir: "V", num: 2 },
+                { answer: "SPACING", r: 3, c: 2, dir: "H", num: 3 },
+                { answer: "BLADE", r: 5, c: 3, dir: "H", num: 4 },
+                { answer: "DADO", r: 5, c: 6, dir: "V", num: 5 }
+            ]
+        },
+        'benefits-custom-furniture.html': {
+            containerId: 'benefits-crossword',
+            size: 11,
+            words: [
+                { answer: "JOINERY", r: 0, c: 4, dir: "V", num: 1 },
+                { answer: "CUSTOM", r: 1, c: 0, dir: "H", num: 2 },
+                { answer: "WALNUT", r: 3, c: 1, dir: "H", num: 3 },
+                { answer: "HEIRLOOM", r: 5, c: 1, dir: "H", num: 4 },
+                { answer: "MAPLE", r: 5, c: 8, dir: "V", num: 5 }
             ]
         }
     };
