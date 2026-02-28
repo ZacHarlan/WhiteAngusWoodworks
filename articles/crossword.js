@@ -50,17 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 { answer: "POPPING", r: 6, c: 2, dir: "H", num: 5 }
             ]
         },
-        'joinery-strength.html': {
-            containerId: 'joinery-crossword',
-            size: 11,
-            words: [
-                { answer: "MECHANICAL", r: 3, c: 0, dir: "H", num: 1 },
-                { answer: "CHEMICAL", r: 3, c: 7, dir: "V", num: 2 },
-                { answer: "TENON", r: 5, c: 6, dir: "H", num: 3 },
-                { answer: "MORTISE", r: 7, c: 3, dir: "H", num: 4 },
-                { answer: "GRAIN", r: 9, c: 5, dir: "H", num: 5 }
-            ]
-        },
         'box-joint-jig.html': {
             containerId: 'box-joint-crossword',
             size: 11,

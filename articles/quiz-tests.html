@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joinery Quiz Tests</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a1a; color: #e0e0e0; padding: 2rem; }
+        h1 { margin-bottom: 1.5rem; font-size: 1.5rem; }
+        .test-group { margin-bottom: 2rem; border: 1px solid #333; border-radius: 8px; overflow: hidden; }
+        .group-header { padding: 0.75rem 1rem; font-weight: bold; font-size: 1.1rem; }
+        .group-header.all-pass { background: #1b4332; }
+        .group-header.has-fail { background: #5c1a1a; }
+        .test-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem; border-top: 1px solid #2a2a2a; font-size: 0.9rem; }
+        .test-row:nth-child(even) { background: #222; }
+        .badge { display: inline-block; width: 20px; height: 20px; border-radius: 50%; text-align: center; line-height: 20px; font-size: 0.75rem; font-weight: bold; flex-shrink: 0; }
+        .pass { background: #2d6a4f; color: #b7e4c7; }
+        .fail { background: #a4161a; color: #ffd6d6; }
+        .detail { color: #aaa; font-size: 0.8rem; margin-left: auto; }
+        .summary { margin-bottom: 1.5rem; padding: 1rem; border-radius: 8px; font-size: 1.1rem; font-weight: bold; }
+        .summary.all-pass { background: #1b4332; }
+        .summary.has-fail { background: #5c1a1a; }
+    </style>
+</head>
+<body>
+    <h1>Joinery Quiz Validation</h1>
+    <div id="summary"></div>
+    <div id="results"></div>
+
+    <!-- Invisible sandbox where the quiz DOM lives -->
+    <div id="sandbox" style="position:absolute;left:-9999px;top:0;width:800px;">
+        <div id="quiz-container">
+            <div class="quiz-all-questions" id="quiz-all-questions"></div>
+            <button id="quiz-submit">Submit Answers</button>
+            <p id="quiz-submit-warning"></p>
+        </div>
+        <div id="quiz-results" style="display:none;">
+            <div class="quiz-results-inner">
+                <div class="quiz-score-ring">
+                    <svg viewBox="0 0 120 120" class="quiz-ring-svg">
+                        <circle cx="60" cy="60" r="52" class="quiz-ring-bg"/>
+                        <circle cx="60" cy="60" r="52" class="quiz-ring-fill" id="quiz-ring-fill"/>
+                    </svg>
+                    <span class="quiz-score-label" id="quiz-score-label"></span>
+                </div>
+                <h3 id="quiz-results-heading"></h3>
+                <p id="quiz-results-percentile"></p>
+                <p class="quiz-results-note">Based on all visitors who have taken this assessment.</p>
+                <button id="quiz-retake">Take It Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the quiz script (populates the sandbox DOM) -->
+    <script src="joinery-quiz.js"></script>
+
+    <script>
+    (function() {
+        var results = [];
+        var Q = window.__quiz;
+
+        // ── Helpers ──
+        function assert(name, condition, detail) {
+            results.push({ name: name, pass: !!condition, detail: detail || '' });
+        }
+
+        function resetQuiz() {
+            Q.buildQuiz();
+        }
+
+        function clickOption(questionIdx, optionIdx) {
+            var opts = document.getElementById('quiz-opts-' + questionIdx);
+            if (!opts) return;
+            var btns = opts.querySelectorAll('.quiz-option');
+            if (btns[optionIdx]) btns[optionIdx].click();
+        }
+
+        function clickSubmit() {
+            document.getElementById('quiz-submit').click();
+        }
+
+        // Suppress scrollIntoView in test environment
+        Element.prototype.scrollIntoView = function() {};
+
+        // ────────────────────────────────────────────
+        // GROUP 1: Data integrity
+        // ────────────────────────────────────────────
+
+        // Test 1: Exactly 5 questions defined
+        assert(
+            'Exactly 5 questions defined',
+            Q.questions.length === 5,
+            'Found ' + Q.questions.length
+        );
+
+        // Test 2: Each question has ≤4 options
+        var maxOpts = 0;
+        var allLe4 = Q.questions.every(function(q, i) {
+            if (q.options.length > maxOpts) maxOpts = q.options.length;
+            return q.options.length <= 4;
+        });
+        assert(
+            'Every question has at most 4 options',
+            allLe4,
+            'Max options on a single question: ' + maxOpts
+        );
+
+        // Test 3: Each question has at least 2 options
+        var allGe2 = Q.questions.every(function(q) { return q.options.length >= 2; });
+        assert(
+            'Every question has at least 2 options',
+            allGe2
+        );
+
+        // Test 4: Answer index is valid for each question
+        var answersValid = Q.questions.every(function(q, i) {
+            return typeof q.answer === 'number' && q.answer >= 0 && q.answer < q.options.length;
+        });
+        assert(
+            'Answer index in bounds for every question',
+            answersValid
+        );
+
+        // Test 5: No duplicate questions
+        var qTexts = Q.questions.map(function(q) { return q.q; });
+        var uniqueQ = new Set(qTexts).size === qTexts.length;
+        assert(
+            'No duplicate question text',
+            uniqueQ
+        );
+
+        // Test 6: No question has duplicate option text
+        var noDupOpts = Q.questions.every(function(q, i) {
+            return new Set(q.options).size === q.options.length;
+        });
+        assert(
+            'No duplicate options within any question',
+            noDupOpts
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 2: DOM rendering
+        // ────────────────────────────────────────────
+        resetQuiz();
+
+        // Test 7: 5 question cards rendered
+        var cards = document.querySelectorAll('#quiz-all-questions .quiz-card');
+        assert(
+            '5 question cards rendered in DOM',
+            cards.length === 5,
+            'Found ' + cards.length + ' cards'
+        );
+
+        // Test 8: Each card has a question paragraph with text
+        var allHaveQ = true;
+        cards.forEach(function(card) {
+            var qp = card.querySelector('.quiz-question');
+            if (!qp || qp.textContent.trim().length === 0) allHaveQ = false;
+        });
+        assert(
+            'Each card has non-empty question text',
+            allHaveQ
+        );
+
+        // Test 9: Each card has exactly 4 option buttons
+        var optCounts = [];
+        cards.forEach(function(card) {
+            optCounts.push(card.querySelectorAll('.quiz-option').length);
+        });
+        var allFour = optCounts.every(function(c) { return c === 4; });
+        assert(
+            'Each card has exactly 4 option buttons',
+            allFour,
+            'Option counts: [' + optCounts.join(', ') + ']'
+        );
+
+        // Test 10: Each card has a "Question N of 5" label
+        var allLabeled = true;
+        cards.forEach(function(card, i) {
+            var label = card.querySelector('.quiz-card-number');
+            var expected = 'Question ' + (i + 1) + ' of 5';
+            if (!label || label.textContent !== expected) allLabeled = false;
+        });
+        assert(
+            'Each card labeled "Question N of 5"',
+            allLabeled
+        );
+
+        // Test 11: All questions visible at once (container not hidden)
+        var cont = document.getElementById('quiz-container');
+        assert(
+            'Quiz container is visible (not display:none)',
+            cont.style.display !== 'none'
+        );
+
+        // Test 12: Results panel hidden initially
+        var resPanel = document.getElementById('quiz-results');
+        assert(
+            'Results panel hidden on initial load',
+            resPanel.style.display === 'none'
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 3: Selection behavior
+        // ────────────────────────────────────────────
+        resetQuiz();
+
+        // Test 13: Clicking an option marks it as selected
+        clickOption(0, 2);
+        var opts0 = document.getElementById('quiz-opts-0').querySelectorAll('.quiz-option');
+        assert(
+            'Clicking option adds .selected class',
+            opts0[2].classList.contains('selected'),
+            'Checked option 2 of question 0'
+        );
+
+        // Test 14: Only one option selected per question
+        clickOption(0, 1);
+        opts0 = document.getElementById('quiz-opts-0').querySelectorAll('.quiz-option');
+        var selectedCount = 0;
+        opts0.forEach(function(btn) { if (btn.classList.contains('selected')) selectedCount++; });
+        assert(
+            'Only one option selected after switching',
+            selectedCount === 1 && opts0[1].classList.contains('selected'),
+            'Selected count: ' + selectedCount
+        );
+
+        // Test 15: Selection updates internal state
+        assert(
+            'Internal selection state updated',
+            Q.getSelections()[0] === 1,
+            'selections[0] = ' + Q.getSelections()[0]
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 4: Submit validation
+        // ────────────────────────────────────────────
+        resetQuiz();
+
+        // Test 16: Submit with no answers shows warning
+        clickSubmit();
+        var warning = document.getElementById('quiz-submit-warning').textContent;
+        assert(
+            'Submit with no answers shows warning',
+            warning.length > 0 && warning.indexOf('Please answer') === 0,
+            'Warning: "' + warning.substring(0, 60) + '..."'
+        );
+
+        // Test 17: Warning mentions all 5 unanswered questions
+        assert(
+            'Warning references unanswered questions',
+            warning.indexOf('1') !== -1 && warning.indexOf('5') !== -1,
+            'Warning text includes question numbers'
+        );
+
+        // Test 18: Quiz is NOT marked as submitted after validation fail
+        assert(
+            'Quiz not submitted when answers missing',
+            !Q.isSubmitted()
+        );
+
+        // Test 19: Submit with partial answers still warns
+        resetQuiz();
+        clickOption(0, 0);
+        clickOption(2, 1);
+        clickOption(4, 3);
+        clickSubmit();
+        var warning2 = document.getElementById('quiz-submit-warning').textContent;
+        assert(
+            'Partial answers still shows warning',
+            warning2.length > 0 && warning2.indexOf('2') !== -1 && warning2.indexOf('4') !== -1,
+            'Missing Q2 and Q4'
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 5: Grading — all correct
+        // ────────────────────────────────────────────
+        resetQuiz();
+        Q.questions.forEach(function(q, i) { clickOption(i, q.answer); });
+        clickSubmit();
+
+        // Test 20: Quiz marked as submitted
+        assert(
+            'Quiz marked submitted after all answered',
+            Q.isSubmitted()
+        );
+
+        // Test 21: All cards marked correct
+        var allCardsCorrect = true;
+        for (var i = 0; i < 5; i++) {
+            var card = document.getElementById('quiz-card-' + i);
+            if (!card.classList.contains('card-correct')) allCardsCorrect = false;
+        }
+        assert(
+            'All 5 cards get .card-correct when all right',
+            allCardsCorrect
+        );
+
+        // Test 22: Correct option highlighted green on each card
+        var allGreen = true;
+        Q.questions.forEach(function(q, qi) {
+            var btns = document.getElementById('quiz-opts-' + qi).querySelectorAll('.quiz-option');
+            if (!btns[q.answer].classList.contains('correct')) allGreen = false;
+        });
+        assert(
+            'Correct option gets .correct class on each card',
+            allGreen
+        );
+
+        // Test 23: Feedback says "Correct!" for each
+        var allCorrectFb = true;
+        for (var i = 0; i < 5; i++) {
+            var fb = document.getElementById('quiz-fb-' + i);
+            if (fb.textContent !== 'Correct!') allCorrectFb = false;
+        }
+        assert(
+            'Each feedback says "Correct!" when right',
+            allCorrectFb
+        );
+
+        // Test 24: All option buttons disabled after submit
+        var allDisabled = true;
+        for (var i = 0; i < 5; i++) {
+            var btns = document.getElementById('quiz-opts-' + i).querySelectorAll('.quiz-option');
+            btns.forEach(function(btn) { if (!btn.disabled) allDisabled = false; });
+        }
+        assert(
+            'All option buttons disabled after submit',
+            allDisabled
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 6: Grading — all wrong
+        // ────────────────────────────────────────────
+        resetQuiz();
+        Q.questions.forEach(function(q, i) {
+            // Pick the first wrong answer
+            var wrong = (q.answer + 1) % q.options.length;
+            clickOption(i, wrong);
+        });
+        clickSubmit();
+
+        // Test 26: All cards marked incorrect
+        var allCardsWrong = true;
+        for (var i = 0; i < 5; i++) {
+            if (!document.getElementById('quiz-card-' + i).classList.contains('card-incorrect')) allCardsWrong = false;
+        }
+        assert(
+            'All 5 cards get .card-incorrect when all wrong',
+            allCardsWrong
+        );
+
+        // Test 27: Wrong option gets .incorrect, correct gets .correct
+        var coloringOk = true;
+        Q.questions.forEach(function(q, qi) {
+            var btns = document.getElementById('quiz-opts-' + qi).querySelectorAll('.quiz-option');
+            var wrongIdx = (q.answer + 1) % q.options.length;
+            if (!btns[wrongIdx].classList.contains('incorrect')) coloringOk = false;
+            if (!btns[q.answer].classList.contains('correct')) coloringOk = false;
+        });
+        assert(
+            'Wrong selection gets .incorrect, correct answer gets .correct',
+            coloringOk
+        );
+
+        // Test 28: Feedback says "Not quite" for wrong answers
+        var allWrongFb = true;
+        for (var i = 0; i < 5; i++) {
+            if (document.getElementById('quiz-fb-' + i).textContent.indexOf('Not quite') === -1) allWrongFb = false;
+        }
+        assert(
+            'Feedback says "Not quite" for wrong answers',
+            allWrongFb
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 7: Results screen
+        // ────────────────────────────────────────────
+
+        // Test 29: Submit shows results panel immediately (all correct for score 5)
+        resetQuiz();
+        Q.questions.forEach(function(q, i) { clickOption(i, q.answer); });
+        clickSubmit();
+
+        assert(
+            'Results panel visible after submit',
+            document.getElementById('quiz-results').style.display === 'block'
+        );
+
+        // Test 30: Quiz container hidden when results shown
+        assert(
+            'Quiz container hidden when results shown',
+            document.getElementById('quiz-container').style.display === 'none'
+        );
+
+        // Test 31: Score label shows correct score
+        assert(
+            'Score label shows "5/5" for perfect score',
+            document.getElementById('quiz-score-label').textContent === '5/5'
+        );
+
+        // Test 32: Results heading present
+        var heading = document.getElementById('quiz-results-heading').textContent;
+        assert(
+            'Results heading is "Master Craftsman!" for 5/5',
+            heading === 'Master Craftsman!'
+        );
+
+        // Test 33: Percentile text present
+        var pctText = document.getElementById('quiz-results-percentile').textContent;
+        assert(
+            'Percentile text shows 98% with "as well or better" for 5/5',
+            pctText.indexOf('98%') !== -1 && pctText.indexOf('as well or better') !== -1,
+            'Got: "' + pctText + '"'
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 8: Results for 0/5
+        // ────────────────────────────────────────────
+        resetQuiz();
+        Q.questions.forEach(function(q, i) {
+            clickOption(i, (q.answer + 1) % q.options.length);
+        });
+        clickSubmit();
+
+        // Test 34: Score label "0/5"
+        assert(
+            'Score label shows "0/5" for zero score',
+            document.getElementById('quiz-score-label').textContent === '0/5'
+        );
+
+        // Test 35: Heading for 0
+        assert(
+            'Heading is "Room to grow!" for 0/5',
+            document.getElementById('quiz-results-heading').textContent === 'Room to grow!'
+        );
+
+        // Test 36: Percentile shows 12% for 0/5
+        assert(
+            'Percentile text shows 12% for 0/5',
+            document.getElementById('quiz-results-percentile').textContent.indexOf('12%') !== -1
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 9: Retake functionality
+        // ────────────────────────────────────────────
+
+        // Test 37: Retake button resets quiz
+        document.getElementById('quiz-retake').click();
+
+        assert(
+            'After retake, quiz container visible again',
+            document.getElementById('quiz-container').style.display === 'block'
+        );
+
+        assert(
+            'After retake, results panel hidden',
+            document.getElementById('quiz-results').style.display === 'none'
+        );
+
+        // Test 39: Fresh cards after retake
+        var freshCards = document.querySelectorAll('#quiz-all-questions .quiz-card');
+        assert(
+            'After retake, 5 fresh cards rendered',
+            freshCards.length === 5
+        );
+
+        // Test 40: No cards have correct/incorrect classes after retake
+        var noGrading = true;
+        freshCards.forEach(function(c) {
+            if (c.classList.contains('card-correct') || c.classList.contains('card-incorrect')) noGrading = false;
+        });
+        assert(
+            'After retake, no cards have grading classes',
+            noGrading
+        );
+
+        // Test 41: All selections reset after retake
+        var allReset = Q.getSelections().every(function(s) { return s === -1; });
+        assert(
+            'After retake, all selections reset to -1',
+            allReset,
+            'Selections: [' + Q.getSelections().join(', ') + ']'
+        );
+
+        // Test 42: Not submitted after retake
+        assert(
+            'After retake, submitted state is false',
+            !Q.isSubmitted()
+        );
+
+        // Test 43: Submit button text reset
+        assert(
+            'After retake, submit button says "Submit Answers"',
+            document.getElementById('quiz-submit').textContent === 'Submit Answers'
+        );
+
+        // ────────────────────────────────────────────
+        // GROUP 10: No options selected blocks submit
+        // ────────────────────────────────────────────
+
+        // Test 44: Can select after retake, then submit works
+        resetQuiz();
+        Q.questions.forEach(function(q, i) { clickOption(i, q.answer); });
+        clickSubmit();
+        assert(
+            'Can complete quiz again after retake',
+            Q.isSubmitted()
+        );
+
+        // ────────────────────────────────────────────
+        // Render results
+        // ────────────────────────────────────────────
+
+        var totalPass = 0;
+        var totalFail = 0;
+        results.forEach(function(r) { if (r.pass) totalPass++; else totalFail++; });
+
+        var summaryEl = document.getElementById('summary');
+        summaryEl.className = 'summary ' + (totalFail === 0 ? 'all-pass' : 'has-fail');
+        summaryEl.textContent = totalPass + ' / ' + results.length + ' tests passed'
+            + (totalFail > 0 ? '  (' + totalFail + ' failed)' : '  ✓ All pass');
+
+        // Group tests by category
+        var groups = [
+            { name: 'Data Integrity', from: 0, to: 5 },
+            { name: 'DOM Rendering', from: 6, to: 11 },
+            { name: 'Selection Behavior', from: 12, to: 14 },
+            { name: 'Submit Validation', from: 15, to: 18 },
+            { name: 'Grading — All Correct', from: 19, to: 23 },
+            { name: 'Grading — All Wrong', from: 24, to: 26 },
+            { name: 'Results Screen (5/5)', from: 27, to: 31 },
+            { name: 'Results Screen (0/5)', from: 32, to: 34 },
+            { name: 'Retake Functionality', from: 35, to: 41 },
+            { name: 'Post-Retake Completion', from: 42, to: 42 }
+        ];
+
+        var container = document.getElementById('results');
+        groups.forEach(function(g) {
+            var section = document.createElement('div');
+            section.className = 'test-group';
+            var groupFail = false;
+
+            for (var i = g.from; i <= g.to && i < results.length; i++) {
+                var r = results[i];
+                if (!r.pass) groupFail = true;
+                var row = document.createElement('div');
+                row.className = 'test-row';
+                row.innerHTML = '<span class="badge ' + (r.pass ? 'pass' : 'fail') + '">'
+                    + (r.pass ? '✓' : '✗') + '</span>'
+                    + '<span>' + r.name + '</span>'
+                    + (r.detail ? '<span class="detail">' + r.detail + '</span>' : '');
+                section.appendChild(row);
+            }
+
+            var header = document.createElement('div');
+            header.className = 'group-header ' + (groupFail ? 'has-fail' : 'all-pass');
+            header.textContent = g.name;
+            section.insertBefore(header, section.firstChild);
+            container.appendChild(section);
+        });
+
+        // Set document title for automated checking
+        document.title = totalPass + '/' + results.length + ' quiz tests passed';
+    })();
+    </script>
+</body>
+</html>
