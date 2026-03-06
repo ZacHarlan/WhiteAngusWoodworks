@@ -256,6 +256,64 @@ ol {
     color: var(--ink);
 }
 
+.header-phone {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    margin-left: auto;
+    margin-right: 1rem;
+    white-space: nowrap;
+}
+
+.header-phone:hover {
+    color: var(--accent, #b5651d);
+}
+
+.header-phone-icon {
+    font-size: 1.2rem;
+}
+
+.header-phone-number {
+    display: none;
+}
+
+@media (min-width: 480px) {
+    .header-phone-number {
+        display: inline;
+    }
+}
+
+@media (min-width: 1200px) {
+    .header-phone {
+        display: none;
+    }
+}
+
+.nav-phone a {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.footer-phone {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.footer-phone a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer-phone a:hover {
+    text-decoration: underline;
+}
+
 .nav-cta {
     white-space: nowrap;
     /* Keep button from breaking awkwardly */
