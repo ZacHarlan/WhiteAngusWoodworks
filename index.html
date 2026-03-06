@@ -8,12 +8,12 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' https://script.google.com;
+        script-src 'self' https://script.google.com https://static.newo.ai;
         style-src 'self' 'unsafe-inline';
         img-src 'self' data: https://whiteanguswoodworks.com;
         font-src 'self';
-        connect-src 'self' https://script.google.com;
-        frame-src 'none';
+        connect-src 'self' https://script.google.com https://*.newo.ai;
+        frame-src https://*.newo.ai;
         object-src 'none';
         base-uri 'self';
     ">
