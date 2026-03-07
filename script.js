@@ -346,4 +346,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    // Add accessible titles to iframes injected by the Newo chat widget
+    const labelNewoIframes = () => {
+        document.querySelectorAll('iframe[name="newo-chat-frame"]:not([title])').forEach(el => {
+            el.setAttribute('title', 'Chat window');
+        });
+        document.querySelectorAll('iframe[name="newo-chat-toggler-frame"]:not([title])').forEach(el => {
+            el.setAttribute('title', 'Open chat');
+        });
+    };
+    labelNewoIframes();
+    const newoObserver = new MutationObserver(labelNewoIframes);
+    newoObserver.observe(document.body, { childList: true, subtree: true });
+
 });
