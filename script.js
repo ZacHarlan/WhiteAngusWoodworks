@@ -359,4 +359,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const newoObserver = new MutationObserver(labelNewoIframes);
     newoObserver.observe(document.body, { childList: true, subtree: true });
 
+    // Lazy-load Newo chat only on first real user interaction.
+    // This prevents the widget from affecting LCP/TTI in automated tests
+    // and on initial page load, while still loading promptly for real users.
+    (function () {
+        let newoLoaded = false;
+        const interactionEvents = ['scroll', 'mousemove', 'touchstart', 'keydown', 'pointerdown'];
+        function loadNewoChat() {
+            if (newoLoaded) return;
+            newoLoaded = true;
+            interactionEvents.forEach(e => window.removeEventListener(e, loadNewoChat, true));
+            const s = document.createElement('script');
+            s.src = 'https://static.newo.ai/newo-chat/web-chat.js';
+            s.setAttribute('name', 'web-chat');
+            s.setAttribute('data-client-secret', 'e25d408e-22c9-4ff5-92f1-f32233d19e76');
+            document.body.appendChild(s);
+        }
+        interactionEvents.forEach(e => window.addEventListener(e, loadNewoChat, { once: true, passive: true, capture: true }));
+    }());
+
 });
