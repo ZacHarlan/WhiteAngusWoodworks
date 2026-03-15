@@ -71,6 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 { answer: "HEIRLOOM", r: 5, c: 1, dir: "H", num: 4 },
                 { answer: "MAPLE", r: 5, c: 8, dir: "V", num: 5 }
             ]
+        },
+        'sandpaper-guide.html': {
+            containerId: 'sandpaper-crossword',
+            size: 11,
+            words: [
+                { answer: "CERAMIC", r: 0, c: 5, dir: "V", num: 1 },
+                { answer: "GARNET", r: 1, c: 9, dir: "V", num: 2 },
+                { answer: "ORBITAL", r: 2, c: 4, dir: "H", num: 3 },
+                { answer: "GRIT", r: 4, c: 3, dir: "V", num: 4 },
+                { answer: "GRAIN", r: 5, c: 2, dir: "H", num: 5 }
+            ]
         }
     };
 

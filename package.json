@@ -1,0 +1,19 @@
+{
+  "name": "whiteanguswoodworks",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lighthouse": "node lighthouse-test.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "chrome-launcher": "^1.2.1",
+    "lighthouse": "^12.8.2",
+    "serve": "^14.2.6",
+    "terser": "^5.46.0"
+  }
+}

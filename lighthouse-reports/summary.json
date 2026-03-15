@@ -1,0 +1,82 @@
+[
+  {
+    "page": "/",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/index.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/ai-woodworking-design.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/benefits-custom-furniture.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/box-joint-jig.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/dovetailed-tea-box.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/joinery-strength.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/staining-guide.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/wood-glue-guide.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  },
+  {
+    "page": "/articles/sandpaper-guide.html",
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "passed": true
+  }
+]
