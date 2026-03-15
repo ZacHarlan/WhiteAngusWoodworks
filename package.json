@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lighthouse": "node lighthouse-test.mjs"
+    "test": "node tests/crossword-tests.mjs && node tests/quiz-tests.mjs",
+    "test:crossword": "node tests/crossword-tests.mjs",
+    "test:quiz": "node tests/quiz-tests.mjs",
+    "test:lighthouse": "node tests/lighthouse-tests.mjs",
+    "test:all": "node tests/crossword-tests.mjs && node tests/quiz-tests.mjs && node tests/lighthouse-tests.mjs"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +15,7 @@
   "description": "",
   "devDependencies": {
     "chrome-launcher": "^1.2.1",
+    "jsdom": "^24.1.3",
     "lighthouse": "^12.8.2",
     "serve": "^14.2.6",
     "terser": "^5.46.0"

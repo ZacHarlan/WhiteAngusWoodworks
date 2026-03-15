@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /articles/crossword-tests.html
 Sitemap: https://whiteanguswoodworks.com/sitemap.xml
